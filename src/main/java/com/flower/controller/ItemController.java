@@ -1,11 +1,9 @@
 package com.flower.controller;
 
-import com.flower.constant.BigType;
 import com.flower.constant.SmallType;
 import com.flower.dto.ItemFormDto;
 import com.flower.dto.ItemListDto;
 import com.flower.dto.ItemSearchDto;
-import com.flower.dto.SessionUser;
 import com.flower.entity.Item;
 import com.flower.entity.Member;
 import com.flower.service.ItemService;

@@ -1,20 +1,15 @@
 package com.flower.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.flower.entity.Item;
 import com.flower.entity.Member;
 import com.flower.entity.Notice;
 import com.flower.entity.Qna;
-import com.querydsl.core.annotations.QueryProjection;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

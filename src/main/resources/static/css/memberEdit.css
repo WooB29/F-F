@@ -9,9 +9,11 @@
     flex-direction: column;
     justify-content: space-around;
 }
+
 .h2{
     margin-bottom: 30px;
 }
+
 .form_input {
     margin-bottom: 20px;
 }
@@ -42,6 +44,7 @@
     border-radius: 10px;
     cursor: pointer;
 }
+
 .inputBtn:hover{
     background-color: #026A6D;
 }
@@ -53,6 +56,7 @@
     border-radius: 8px;
     padding: 5px 15px;
 }
+
 .member_btn:hover{
     background-color: #8361AE;
     transform: translateY(-3px);

@@ -4,7 +4,6 @@ $(document).ready(function(){
         page(0);
     });
 
-
     $(".modify_only").click(function(){
         var row = $(this).closest("tr");
         var email = row.find("td:eq(2)").text();
@@ -26,8 +25,7 @@ function save(){
         "name" : name,
         "role" : role
     };
-     var param = JSON.stringify(data);
-
+    var param = JSON.stringify(data);
     $.ajax({
         url:"/admin/member/modify",
         type:"POST",
@@ -49,14 +47,11 @@ function save(){
 
 function modify(email,name,role){
     var modal = $("#modify_modal");
-
     $("#modify_email").attr('value',email);
     $("#modify_name").attr('value',name);
     $("#modify_select").val(role).prop("selected",true);
-
     modal.css('display', 'block');
 }
-
 
 function page(page){
     var searchDateType = $("#searchDateType").val();

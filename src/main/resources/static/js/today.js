@@ -6,6 +6,7 @@ $(document).ready(function(){
         $('.today_div').css('display','none');
         $('.flower_info').css('display','block');
     });
+
     $('#simpleBtn').on('click',function(){
         $('.today_div').css('display','block');
         $('.flower_info').css('display','none');
@@ -16,7 +17,6 @@ function inputData(data){
     console.log(data);
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(data, "text/xml");
-
     const dataNo = xmlDoc.querySelector("dataNo").textContent;
     const repcategory = xmlDoc.querySelector("repcategory").textContent;
     const flowNm = xmlDoc.querySelector("flowNm").textContent;
@@ -44,7 +44,6 @@ function inputData(data){
     $(".img_div").append(bigImg);
     const imgDiv = $("<div>").attr("class","images");
     $(".img_div").append(imgDiv);
-
 
     for (let i = 1; i <= 3; i++) {
         const img = $("<img>").attr("src", xmlDoc.querySelector(`imgUrl${i}`).textContent).attr("alt", `${i}번 이미지`).attr("onclick","changeImg(this)");
@@ -81,7 +80,6 @@ function textEnter(text) {
     });
     return htmlString;
 }
-
 
 function changeImg(e){
     var src = $(e).attr("src");

@@ -1,7 +1,6 @@
 package com.flower.repository;
 
 import com.flower.dto.CartDetailDto;
-import com.flower.entity.Cart;
 import com.flower.entity.CartItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

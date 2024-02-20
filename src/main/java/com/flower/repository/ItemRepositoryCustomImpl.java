@@ -18,7 +18,6 @@ import org.springframework.data.domain.Pageable;
 import org.thymeleaf.util.StringUtils;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ItemRepositoryCustomImpl implements ItemRepositoryCustom{

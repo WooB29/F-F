@@ -20,8 +20,6 @@ public class ItemListDto {
     private Integer discountRate;
     private Integer discountPrice;
     private String bigType;
-    //private BigType bigType;
-    //private SmallType smallType;
     private String smallType;
     private ItemPick itemPick;
 

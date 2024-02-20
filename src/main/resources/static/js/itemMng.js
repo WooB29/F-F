@@ -53,7 +53,6 @@ function itemPick(itemId, url, token, header){
 }
 
 function itemDelete(itemId, token, header){
-
     var url = "/admin/item/delete/" + itemId;
 
     $.ajax({

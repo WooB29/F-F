@@ -4,10 +4,8 @@ import com.flower.constant.OrderStatus;
 import com.flower.dto.ItemListDto;
 import com.flower.dto.OrderDto;
 import com.flower.dto.OrderHistDto;
-import com.flower.service.MngService;
 import com.flower.service.OrderService;
 import com.flower.service.ValidService;
-import com.siot.IamportRestClient.IamportClient;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Controller

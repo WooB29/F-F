@@ -2,8 +2,8 @@
     display:flex;
     justify-content: space-around;
     margin-top:10px;
-
 }
+
 .top_type{
     text-align: center;
     margin-top: 20px;
@@ -15,6 +15,7 @@ input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
 .form-control{
     text-align: center;
     border: 1px solid #5C5DCA;
@@ -30,10 +31,12 @@ input[type="number"]::-webkit-inner-spin-button {
     margin: 0 auto;
     text-align: center;
 }
+
 #prev{
     background: url(/img/minus.png);
     background-repeat: no-repeat;
 }
+
 #next{
     background: url(/img/plus.png);
     background-repeat: no-repeat;
@@ -43,24 +46,29 @@ input[type="number"]::-webkit-inner-spin-button {
     padding: 8px 10px;
     float: right;
 }
+
 .repImgDiv{
     margin-right:30px;
     height:auto;
     width:40%;
 }
+
 .repImg{
     width:100%;
     height:420px;
 }
+
 .wd50{
     height:auto;
     width:40%;
 }
+
 .jumbotron{
     width: 90%;
     margin: 0 auto;
     margin-top: 20px;
 }
+
 .total_price{
     margin-bottom: 15px;
 }
@@ -69,12 +77,14 @@ input[type="number"]::-webkit-inner-spin-button {
     float: right;
     color: red;
 }
+
 .order_btn{
     width: 100%;
     height: 52px;
     margin-top: 5px;
     margin-bottom: 10px;
 }
+
 .add_cart_btn{
     border: none;
     width: 45%;
@@ -112,6 +122,7 @@ input[type="number"]::-webkit-inner-spin-button {
     text-align: center;
     margin-top: 20px;
 }
+
 .link_a{
     padding: 30px;
     padding-right: 90px;
@@ -119,12 +130,15 @@ input[type="number"]::-webkit-inner-spin-button {
     border-bottom: 2px solid #699FEC;
     color: #558E89;
 }
+
 .link_a:link{
     color: #558E89;
 }
+
 .link_a:visited{
     color: #558E89;
 }
+
 .link_a:active{
     color: #558E89;
 }
@@ -150,7 +164,6 @@ input[type="number"]::-webkit-inner-spin-button {
     font-weight: 600;
     float : right;
 }
-
 
 .all_div {
     background-color: #fff;
@@ -255,6 +268,7 @@ input[type="number"]::-webkit-inner-spin-button {
     background-position: center center;
     border: none;
 }
+
 .pick{
     background: url(/img/noHeart.gif);
     background-repeat: no-repeat;

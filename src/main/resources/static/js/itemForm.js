@@ -10,6 +10,7 @@ $(document).ready(function(){
         discount_check();
     });
     changeDiscount_result();
+
     $("#discount_input, #item_price").on("input", function() {
         changeDiscount_result();
     });

@@ -2,12 +2,14 @@ package com.flower.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "deleteItem_img")
 @Getter
 @Setter
+@NoArgsConstructor
 public class DeleteItemImg extends BaseEntity{
     @Id
     @Column(name = "deleteItem_img_id")
@@ -20,8 +22,6 @@ public class DeleteItemImg extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "deleteItem_id")
     private DeleteItem deleteItem;
-
-    public DeleteItemImg(){};
 
     public DeleteItemImg(ItemImg itemImg){
         this.imgName = itemImg.getImgName();

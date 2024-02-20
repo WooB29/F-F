@@ -14,9 +14,7 @@ $(document).ready(function(){
         const input = row.find("input:eq(1)");
         next(input);
     });
-
 });
-
 
 function prev(count){
     var minus = parseInt(count.val());
@@ -32,7 +30,6 @@ function next(count){
     changeCount(count.get(0));
 }
 
-
 function getOrderTotalPrice(){
     var orderTotalPrice = 0;
     $("input[name=cartChkBox]:checked").each(function(){
@@ -42,7 +39,6 @@ function getOrderTotalPrice(){
         var count = $("#count_" + cartItemId).val();
         orderTotalPrice += price * count;
     });
-
     $("#orderTotalPrice").html(priceToString(orderTotalPrice)+'원');
 }
 
@@ -55,6 +51,7 @@ function changeCount(obj){
     getOrderTotalPrice();
     updateCartItemCount(cartItemId, count);
 }
+
 function checkAll(){
     if($("#checkall").prop("checked")){
         $("input[name=cartChkBox]").prop("checked", true);
@@ -68,7 +65,6 @@ function checkAll(){
 function updateCartItemCount(cartItemId, count){
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
-
     var url = "/cartItem/" + cartItemId + "?count=" + count;
 
     $.ajax({
@@ -132,9 +128,9 @@ function orders(){
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
     var uid = uniqueNumber();
-
     var memberEmail = $('#memberEmail').val();
     var check = $.trim(memberEmail);
+
     if(check == ''){
         alert("로그인 후 이용해주세요.");
         return;
@@ -145,9 +141,9 @@ function orders(){
         alert("주문할 상품을 선택해주세요.");
         return;
     }
+
     var dataList = new Array();
     var paramData = new Object();
-
     var outCheck = false;
 
     checkedItems.each(function () {
@@ -185,10 +181,8 @@ function orders(){
         if(rsp.success){
             alert("결제 완료");
             var url = "/cart/orders";
-
             paramData['cartOrderDtoList'] = dataList;
             var param = JSON.stringify(paramData);
-
             $.ajax({
                 url : url,
                 type : "POST",

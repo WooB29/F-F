@@ -1,15 +1,10 @@
 package com.flower.controller;
 
-import com.flower.dto.ItemSearchDto;
 import com.flower.dto.MemberSearchDto;
 import com.flower.dto.OrderHistDto;
-import com.flower.dto.ResponseDto;
-import com.flower.entity.Item;
 import com.flower.entity.Member;
 import com.flower.service.MngService;
 import com.flower.service.OrderService;
-import com.flower.service.ValidService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.Map;
 import java.util.Optional;
 

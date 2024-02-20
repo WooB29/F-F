@@ -1,6 +1,5 @@
 package com.flower.dto;
 
-import com.flower.entity.ItemImg;
 import com.flower.entity.NoticeImg;
 import com.flower.entity.QnaImg;
 import lombok.Getter;

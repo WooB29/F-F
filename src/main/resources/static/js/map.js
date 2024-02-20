@@ -23,18 +23,3 @@ geocoder.addressSearch('부평동 534-48', function(result, status) {
         map.setCenter(coords);
     }
 });
-/*
-var position = new kakao.maps.LatLng(37.49100, 126.7206);
-
-var marker = {
-    position : position,
-}
-
-var container = document.getElementById('map');
-var options = {
-    center: position,
-    level: 3,
-    marker: marker
-};
-var map = new kakao.maps.StaticMap(container, options);
-*/

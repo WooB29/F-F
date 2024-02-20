@@ -26,6 +26,7 @@ function searchData(){
         todaySearchDto.month = selectedMonth;
         todaySearchDto.day = selectedDate;
     }
+
     if (selectedOption === "name") {
         var nameValue = $("#select_name input").val();
         if($.trim(nameValue) == ''){
@@ -35,6 +36,7 @@ function searchData(){
         todaySearchDto.searchType = '1';
         todaySearchDto.searchWord = nameValue;
     }
+
     if (selectedOption === "language") {
         var languageValue = $("#select_language input").val();
         if($.trim(languageValue) == ''){
@@ -44,6 +46,7 @@ function searchData(){
         todaySearchDto.searchType = '4';
         todaySearchDto.searchWord = languageValue;
     }
+
     $("#pageData").val(JSON.stringify(todaySearchDto));
     dataSend(todaySearchDto, "1");
 }
@@ -84,14 +87,11 @@ function inputData(response){
     var repcategory = $(response).find('repcategory').text();
     var h2 = $("<h2>").text(repcategory);
     searchDataList.append(h2);
-
     var resultCnt = $(response).find('resultCnt').text();
-
     var data = $(response).find('result');
 
     for (var i = 0; i < data.length; i += 2) {
         var div = $("<div>").addClass("list_items");
-
         var item1 = data[i];
         var a1 = createItemDiv(item1);
         div.append(a1);
@@ -103,7 +103,6 @@ function inputData(response){
         }
         searchDataList.append(div);
     }
-
     var pageNo = $(response).find('pageNo').text();
     var totalPages = Math.ceil(parseInt(resultCnt) / 10);
     var button_div = $("<div>").addClass("button_div");
@@ -120,18 +119,15 @@ function inputData(response){
         });
     }
     searchDataList.append(button_div);
-
     function createItemDiv(item) {
         var fMonth = $(item).find('fMonth').text();
         var fDay = $(item).find('fDay').text();
         var a = $("<a>").addClass("items_div").attr("href", "/api/today-flower/" + fMonth + "/" + fDay);
-
         var div1 = $("<div>");
         var p1 = $("<p>").append("<span>" + fMonth + " 월&nbsp;</span>").append("<span>" + fDay + " 일</span>");
         var p2 = $("<p>").text($(item).find('flowNm').text());
         var flowLang = $(item).find('flowLang').text();
         var p3 = $("<p>").html(textEnter(flowLang));
-
         div1.append(p1).append(p2);
         a.append(div1).append(p3);
         return a;
@@ -194,9 +190,7 @@ function updateDaySelect() {
     var selectedMonth = parseInt($("#monthSelect").val());
     var daysInMonth = new Date(new Date().getFullYear(), selectedMonth, 0).getDate();
     var daySelect = $("#daySelect");
-
     daySelect.empty();
-
     for (var i = 1; i <= daysInMonth; i++) {
         daySelect.append($("<option></option>").text(i + "일").val(i));
     }
@@ -216,4 +210,3 @@ function textEnter(text) {
     });
     return htmlString;
 }
-

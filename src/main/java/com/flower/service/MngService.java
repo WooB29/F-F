@@ -2,12 +2,9 @@ package com.flower.service;
 
 import com.flower.constant.ErrorStatus;
 import com.flower.constant.ItemPick;
-import com.flower.constant.OrderStatus;
 import com.flower.constant.Role;
 import com.flower.dto.ErrorDto;
 import com.flower.dto.MemberSearchDto;
-import com.flower.dto.OrderHistDto;
-import com.flower.dto.OrderItemDto;
 import com.flower.entity.*;
 import com.flower.entity.Error;
 import com.flower.repository.ErrorRepository;

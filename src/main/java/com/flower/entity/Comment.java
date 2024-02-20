@@ -4,7 +4,6 @@ import com.flower.dto.CommentDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 
 import java.util.ArrayList;
@@ -42,12 +41,5 @@ public class Comment extends BaseEntity{
         comment.setMember(commentDto.getMember());
         return comment;
     }
-
-    public void addChild(Comment child){
-        this.children.add(child);
-        child.setParent(this);
-    }
-
-
 
 }

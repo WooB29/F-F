@@ -11,7 +11,6 @@ function deletePick(){
         },
         success: function(data){
             location.reload();
-            //$(".heart_img[data-id='" + itemId + "']").attr("src","/img/noHeart.gif");
         },
         error : function(jqXHR, status, error){
             if(jqXHR.status == '401'){

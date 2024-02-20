@@ -135,8 +135,6 @@ function actionBtn(commentId, boardId, dataWhere, where, content, addContent, ch
     }
 }
 
-
-
 function readURL(){
     $(".img_input").on("change", function(){
         var num = $(this).data('num');
@@ -188,7 +186,6 @@ function newComment(boardId, where){
             xhr.setRequestHeader(header, token);
         },
         success: function(data){
-            //addList(content, data);
             location.reload();
         },
         error : function(jqXHR, status, error){
@@ -202,17 +199,3 @@ function newComment(boardId, where){
     });
 }
 
-function addList(content, data){
-    const div =
-    `<div>
-        <label th:text="${ct.member.name}" class="label"></label>
-        <input type="text" th:value="${ct.content}" th:if="${ct.member.email == who}" class="input">
-        <label th:text="${ct.updateTime}" class="label"></label>
-        <button th:data-commentid="${ct.id}" class="comment_btn" th:data-where="1" type="button">수정</button>
-        <button th:data-commentid="${ct.id}" class="comment_btn" th:data-where="2" type="button">삭제</button>
-
-    </div>`;
-
-    $('#commentList').append(div);
-    $('#newText').val('');
-}

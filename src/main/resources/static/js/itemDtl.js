@@ -2,11 +2,12 @@ $(document).ready(function(){
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
     calculateTotalPrice();
+    var itemId = $('#itemId').val();
 
     $("#count").change(function(){
         calculateTotalPrice();
     });
-    var itemId = $('#itemId').val();
+
     $("#newBtn").click(function(){
         newComment(itemId, token, header);
     });
@@ -75,7 +76,6 @@ function order(){
     var uid = uniqueNumber();
     var itemNm = $('#itemNm').text();
     var total = $('#totalPrice').text();
-
     var IMP = window.IMP;
     IMP.init("imp63560331");
     IMP.request_pay({
@@ -91,12 +91,10 @@ function order(){
             var token = $("meta[name='_csrf']").attr("content");
             var header = $("meta[name='_csrf_header']").attr("content");
             var url = "/order";
-
             var paramData = {
                 itemId : itemId,
                 count : count
             }
-
             var param = JSON.stringify(paramData);
             $.ajax({
                 url : url,
@@ -314,24 +312,24 @@ function pick(){
 
 function pickCancel(){
     var token = $("meta[name='_csrf']").attr("content");
-        var header = $("meta[name='_csrf_header']").attr("content");
-        var itemId = $('#itemId').val();
+    var header = $("meta[name='_csrf_header']").attr("content");
+    var itemId = $('#itemId').val();
 
-        $.ajax({
-            url:"/item/pickCancel/"+itemId,
-            type:"PATCH",
-            beforeSend : function(xhr){
-                xhr.setRequestHeader(header, token);
-            },
-            success: function(data){
-                location.reload();
-            },
-            error : function(jqXHR, status, error){
-                if(jqXHR.status == '401'){
-                    alert('로그인 후 이용해주세요.');
-                }else{
-                    alert(jqXHR.responseText);
-                }
+    $.ajax({
+        url:"/item/pickCancel/"+itemId,
+        type:"PATCH",
+        beforeSend : function(xhr){
+            xhr.setRequestHeader(header, token);
+        },
+        success: function(data){
+            location.reload();
+        },
+        error : function(jqXHR, status, error){
+            if(jqXHR.status == '401'){
+                alert('로그인 후 이용해주세요.');
+            }else{
+                alert(jqXHR.responseText);
             }
-        });
+        }
+    });
 }

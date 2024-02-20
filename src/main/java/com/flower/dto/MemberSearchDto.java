@@ -1,8 +1,5 @@
 package com.flower.dto;
 
-
-import com.flower.constant.BigType;
-import com.flower.constant.ItemSellStatus;
 import com.flower.constant.Role;
 import lombok.Getter;
 import lombok.Setter;

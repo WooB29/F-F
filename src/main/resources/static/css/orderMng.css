@@ -4,6 +4,7 @@
     justify-content: center;
     align-items:baseline;
 }
+
 .td_label {
     width: 20%;
     margin: 15px;
@@ -50,8 +51,8 @@
     display:inline-block;
     transform-origin: center;
     transition: transform 1s;
-
 }
+
 .input_check:checked + .img_label::before{
     transform: rotate(180deg);
 }

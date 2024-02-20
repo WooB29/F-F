@@ -173,7 +173,6 @@ function show_form(){
         sign.style.display = 'block';
         log_h2.style.opacity = '10%';
         sign_h2.style.opacity = '100%';
-
     }
     else{
         login.style.display = 'block';
@@ -196,7 +195,6 @@ function address_Btn() {
     new daum.Postcode({
         oncomplete: function(data) {
             var addr = '';
-
             if (data.userSelectedType === 'R') {
                 addr = data.roadAddress;
             } else {

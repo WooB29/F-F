@@ -20,7 +20,6 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 

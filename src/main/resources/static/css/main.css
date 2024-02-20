@@ -71,7 +71,6 @@
     margin-right: 10px;
 }
 
-
 .banner_btn{
     border: none;
     background-color: none;
@@ -94,12 +93,10 @@
     list-style: none;
     display: flex;
     justify-content: space-between;
-
     top: 15%;
     left: 0;
     transition: left 1.5s ease-out;
 }
-
 
 .banner_div_div_div{
     position: absolute;
@@ -108,9 +105,11 @@
     right: 0;
     overflow: hidden;
 }
+
 .banner_img_Group{
     position: relative;
 }
+
 [aria-hidden='true']{
     display: none;
 }
@@ -119,7 +118,6 @@
     text-align: center;
     margin-bottom: 15px;
 }
-
 
 .content_text{
     display: flex;
@@ -134,6 +132,7 @@
     opacity: 70%;
     cursor: pointer;
 }
+
 .arrow{
     position: absolute;
     right: -60%;
@@ -163,13 +162,14 @@
 .url_item:active{
     color:white;
 }
+
 .url_item:visited{
     color:white;
 }
+
 .url_item:link{
     color:white;
 }
-
 
 .url_item:hover{
     transform: scale(1.02);
@@ -178,9 +178,11 @@
 .url_item:first-child{
     background-color: #6AA588;
 }
+
 .url_item:last-child{
     background-color: #000000;
 }
+
 .url_img{
     position: absolute;
     top: 40%;
@@ -199,7 +201,6 @@
     z-index: 0;
     padding: 10rem 0;
 }
-
 
 .card_box{
     display: flex;
@@ -261,7 +262,6 @@
     opacity: 60%;
 }
 
-
 .btn_div{
     width: 880px;
     position: relative;
@@ -298,7 +298,6 @@
 .item_li:not(:last-child){
     margin-right: 30px;
 }
-
 
 .item_li:hover{
     transform: scale(1.05);

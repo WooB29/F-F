@@ -20,6 +20,7 @@
     margin-bottom: 30px;
     border-radius: 15px;
 }
+
 .today_div button, .flower_info button{
     width: 30%;
     height: 50px;
@@ -29,6 +30,7 @@
     border: none;
     border-radius: 10px;
 }
+
 .today_div button:hover{
     background-color: #3B6369;
 }
@@ -42,6 +44,7 @@
     display: none;
     margin: 3rem;
 }
+
 .info_date{
     text-align: center;
 }
@@ -49,7 +52,6 @@
 .info_date label{
     margin: 20px 5px;
 }
-
 
 .info_div{
     display: flex;
@@ -78,6 +80,7 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
 #bigImg{
     width: 100%;
     height: 450px;

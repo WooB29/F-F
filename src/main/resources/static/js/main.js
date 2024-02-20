@@ -175,11 +175,8 @@ function bannerChange(index, index2, page){
     var imgWidth = $('.banner_itemImg').outerWidth(true);
     var newPosition = -(((index - 1) * (imgWidth+100)));
     $('.banner_img').css('left', newPosition);
-
-
     $('[aria-hidden="false"]').attr('aria-hidden','true');
     $('#b'+index).attr('aria-hidden','false');
-
     $('#c'+index2).attr('aria-hidden', 'false');
     page.text(index);
 }

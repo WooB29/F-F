@@ -1,14 +1,11 @@
 package com.flower.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.flower.entity.Comment;
 import com.flower.entity.Member;
 import lombok.Getter;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -16,14 +13,8 @@ import java.util.List;
 public class CommentDto {
     private Long id;
     private String content;
-
     private Member member;
-
-    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
-    //private LocalDateTime CreatedTime;
-
     private Comment parent;
-
     private List<Comment> children;
 
     private static ModelMapper modelMapper = new ModelMapper();

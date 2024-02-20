@@ -1,7 +1,6 @@
 package com.flower.entity;
 
 import com.flower.constant.ErrorStatus;
-import com.flower.dto.ErrorDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

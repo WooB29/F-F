@@ -23,7 +23,6 @@ $(document).ready(function(){
 function statusSave(orderId, orderStatus){
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
-
     $.ajax({
         url:"/order/"+orderId+"/change/"+orderStatus,
         type:"PATCH",

@@ -7,12 +7,11 @@
     <meta name="_csrf_header" th:content="${_csrf.headerName}">
 </head>
 
-<!-- 사용자 스크립트 추가 -->
 <th:block layout:fragment="script">
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
     <script type="text/javascript" th:src="@{/js/itemDtl.js}"></script>
 </th:block>
-<!-- 사용자 CSS 추가 -->
+
 <th:block layout:fragment="css">
     <link th:href="@{/css/itemDtl.css}" rel="stylesheet">
 </th:block>

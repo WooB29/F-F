@@ -3,7 +3,6 @@ package com.flower.repository;
 import com.flower.constant.Role;
 import com.flower.dto.MemberSearchDto;
 import com.flower.entity.Member;
-import com.flower.entity.QItem;
 import com.flower.entity.QMember;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;

@@ -1,7 +1,5 @@
 package com.flower.repository;
 
-
-import com.flower.constant.BigType;
 import com.flower.constant.SmallType;
 import com.flower.dto.ItemListDto;
 import com.flower.dto.ItemSearchDto;

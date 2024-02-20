@@ -17,10 +17,12 @@
     align-items: baseline;
     margin-bottom: 10px;
 }
+
 .form_label{
     opacity: 60%;
     margin-bottom: 10px;
 }
+
 .form_input{
     width: 750px;
     height: 50px;
@@ -30,9 +32,11 @@
     padding: 20px;
     margin-bottom: 10px;
 }
+
 .form_input:focus {
     outline:none;
 }
+
 .form_textarea{
     width: 750px;
     height: 400px;
@@ -42,6 +46,7 @@
     padding: 15px;
     resize: none;
 }
+
 .form_textarea:focus {
     outline:none;
 }
@@ -61,6 +66,7 @@
     border-radius: 5px;
     text-align: center;
 }
+
 .file_name {
     display: inline-block;
     padding: 10px 20px;
@@ -72,6 +78,7 @@
     margin-left: 10px;
     border-radius: 5px;
 }
+
 .img_input {
     position: absolute;
     width: 0;
@@ -218,6 +225,7 @@
     padding-top: 16px;
     background-color: #20753F;
 }
+
 .nextBtn:hover{
     background-color: #006164;
 }

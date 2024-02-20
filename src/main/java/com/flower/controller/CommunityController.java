@@ -4,8 +4,6 @@ import com.flower.constant.Role;
 import com.flower.dto.*;
 import com.flower.entity.Comment;
 import com.flower.entity.Member;
-import com.flower.entity.Notice;
-import com.flower.entity.Qna;
 import com.flower.service.CommunityService;
 import com.flower.service.MemberService;
 import com.flower.service.ValidService;

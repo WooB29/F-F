@@ -1,13 +1,11 @@
 package com.flower.service;
 
-import com.flower.constant.BigType;
 import com.flower.constant.OrderStatus;
 import com.flower.constant.Role;
 import com.flower.constant.SmallType;
 import com.flower.dto.*;
 import com.flower.entity.*;
 import com.flower.repository.*;
-import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

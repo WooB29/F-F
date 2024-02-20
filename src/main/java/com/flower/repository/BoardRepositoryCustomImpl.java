@@ -1,13 +1,11 @@
 package com.flower.repository;
 
-import com.flower.dto.CommentDto;
 import com.flower.dto.CommunitySearchDto;
 import com.flower.entity.*;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;

@@ -1,7 +1,6 @@
 package com.flower.dto;
 
 import com.flower.constant.OrderStatus;
-import com.flower.entity.Member;
 import com.flower.entity.Order;
 import lombok.Getter;
 import lombok.Setter;

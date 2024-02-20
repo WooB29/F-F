@@ -5,6 +5,7 @@
     align-items: baseline;
     margin: 0 auto;
 }
+
 .select{
     width: 30%;
     height: 40px;
@@ -16,23 +17,28 @@
     margin-top: 10px;
     margin-bottom: 5px;
 }
+
 .select_item{
     border-radius: 6px;
     width: 250px;
     height: 40px;
     text-align: center;
 }
+
 .modify{
     text-decoration-line: none;
     color: #00899A;
     cursor: pointer;
 }
+
 .modify:link  {
     color: #00899A;
 }
+
 .modify:visited{
     color: #00899A;
 }
+
 .modify:active{
     color: #00899A;
 }
@@ -41,7 +47,6 @@
     width: 30px;
     height: 30px;
     border: none;
-
 }
 
 .pick_btn{

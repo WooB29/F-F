@@ -39,8 +39,8 @@
     font-weight: 550;
     border: none;
     background-color: #EAE8EF;
-
 }
+
 .search_Btn{
     position: absolute;
     right: 4%;
@@ -79,9 +79,7 @@
     transform: translateY(0.125rem);
 }
 
-
 .dropbtn {
-
     color: black;
     padding: 1rem;
     font-size: 0.938rem;
@@ -153,6 +151,7 @@
 .topMove:active{
     transform: translateY(0.125rem);
 }
+
 .topTip{
     visibility: hidden;
     width: 5.625rem;
@@ -170,7 +169,6 @@
     bottom: -2.188rem;
     right: -25%;
     background-color: #FFBACF;
-
 }
 
 .topMove .topTip::after{

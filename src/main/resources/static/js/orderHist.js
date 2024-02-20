@@ -2,16 +2,13 @@ function cancelOrder(orderId){
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
     var num = $(event.target).data('num');
-
     var url = "/order/" + orderId +"/cancel/"+num;
     var paramData = {
         orderId : orderId,
         num : num,
     };
     console.log("num : "+num);
-
     var param = JSON.stringify(paramData);
-
     $.ajax({
         url : url,
         type : "POST",

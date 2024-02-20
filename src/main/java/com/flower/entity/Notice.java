@@ -1,6 +1,5 @@
 package com.flower.entity;
 
-import com.flower.constant.Role;
 import com.flower.dto.BoardFormDto;
 import jakarta.persistence.*;
 import lombok.Getter;

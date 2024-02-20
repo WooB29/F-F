@@ -15,6 +15,7 @@
     width: 100px;
     height: 40px;
 }
+
 .count-control:hover, .count-control:focus{
     outline: none;
 }
@@ -30,10 +31,12 @@ input[type="number"]::-webkit-inner-spin-button {
     border: 1px solid #aaa;
     border-radius: 8px;
 }
+
 .prev{
     background: url(/img/minus.png);
     background-repeat: no-repeat;
 }
+
 .next{
     background: url(/img/plus.png);
     background-repeat: no-repeat;
@@ -47,6 +50,7 @@ input[type="number"]::-webkit-inner-spin-button {
     padding-right:30px;
     height:auto;
 }
+
 .repImg{
     height:100px;
     width:100px;
@@ -60,7 +64,6 @@ input[type="number"]::-webkit-inner-spin-button {
 .delete_td{
     position: relative;
 }
-
 
 .close{
     position: absolute;
@@ -90,6 +93,7 @@ input[type="number"]::-webkit-inner-spin-button {
 .check_label::before{
     content: url(/img/uncheck.png);
 }
+
 .check_label:hover{
     content: url(/img/actioncheck.gif);
 }
