@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<th:block layout:fragment="script">
+    <script type="text/javascript" th:src="@{/js/board.js}"></script>
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            $("#searchBtn").on("click",function(e){
+                e.preventDefault();
+                page(0);
+            });
+
+        });
+
+    </script>
+</th:block>
+
+<th:block layout:fragment="css">
+    <link th:href="@{/css/board.css}" rel="stylesheet">
+</th:block>
+<div layout:fragment="content">
+    <div class="content_layout">
+        <input type="hidden" th:value="${errorMessage}" id="errorMessage">
+        <input class="header text_bigHeader" th:if="${where.equals('notice')}" value="공지사항" readonly>
+        <input class="header text_bigHeader" th:if="${where.equals('qna')}" value="Q & A" readonly>
+
+
+        <form th:action="@{'/community/'+${where}+'/' + ${boards.number}}" role="form" method="get" th:object="${boards}">
+            <div th:object="${communitySearchDto}">
+                <div class="select_div">
+                    <select th:field="*{searchBy}" class="select">
+                        <option value="title text_p">제목</option>
+                        <option value="writer text_p">작성자</option>
+                    </select>
+                    <input th:field="*{searchQuery}" type="text" class="select_item" placeholder="검색어를 입력해주세요">
+                    <button id="searchBtn" type="submit" class="btn btn-outline-info text_p">검색</button>
+                </div>
+            </div>
+
+            <table class="table table-hover">
+                <thead>
+                <tr style="text-align:center;">
+                    <th style="width:5%;" class="text_smallHeader">No</th>
+                    <th style="width:15%;" class="text_smallHeader">작성자</th>
+                    <th style="width:50%;" class="text_smallHeader">제목</th>
+                    <th style="width:20%;" class="text_smallHeader">등록일</th>
+                    <th style="width:10%;" class="text_smallHeader">조회수</th>
+                </tr>
+                </thead>
+                <tr th:each="board, status: ${boards.getContent()}">
+                    <td th:text="${board.id}" style="text-align:center;" class="text_p"></td>
+                    <td th:if="${board.member.role == T(com.flower.constant.Role).ADMIN}" th:text="관리자" style="text-align:center;" class="text_p"></td>
+                    <td th:unless="${board.member.role == T(com.flower.constant.Role).ADMIN}" th:text="${board.member.name}" style="text-align:center;" class="text_p"></td>
+                    <td>
+                        <a th:href="'/community/'+${where}+'/view/'+${board.id}" th:text="${board.title}"></a>
+                    </td>
+                    <td th:text="${#temporals.format(board.regTime, 'yyyy-MM-dd')}" style="text-align:center;" class="text_p"></td>
+                    <td th:text="${board.hits}" style="text-align:center;" class="text_p"></td>
+                </tr>
+                </tbody>
+            </table>
+            <div th:with="start=${(boards.number/maxPage)*maxPage + 1},
+                end=(${(boards.totalPages == 0) ? 1 : (start + (maxPage - 1) < boards.totalPages ? start + (maxPage - 1) : boards.totalPages)})">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" th:classappend="${boards.first}?'disabled'">
+                        <a th:onclick="'javascript:page('+${boards.number -1} + ')'" aria-label='Previous' class="page-link">
+                            <span aria-hidden="true" class="page_left"></span>
+                        </a>
+                    </li>
+                    <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${boards.number eq page-1}?' active':''">
+                        <a th:onclick="'javascript:page(' + ${page -1} + ')'" th:inline="text" class="page-link text_p">[[${page}]]</a>
+                    </li>
+                    <li class="page-item" th:classappend="${boards.last}?'disabled'">
+                        <a th:onclick="'javascript:page(' + ${boards.number + 1} + ')'" aria-label="Next" class="page-link">
+                            <span aria-hidden="true" class="page_right"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div th:if="${where == 'notice'}" style="text-align:right;"  class="text_smallHeader">
+                <div th:if="${write_role == T(com.flower.constant.Role).ADMIN}">
+                    <a th:href="'/community/'+${where}+'/new'">글작성</a>
+                </div>
+            </div>
+            <div th:if="${where == 'qna'}" style="text-align:right;" class="text_smallHeader">
+                <div th:if="${write_role != T(com.flower.constant.Role).GUEST}">
+                    <a th:href="'/community/'+${where}+'/new'">글작성</a>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+</html>

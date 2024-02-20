@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+</head>
+
+<!-- 사용자 스크립트 추가 -->
+<th:block layout:fragment="script">
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    <script type="text/javascript" th:src="@{/js/itemDtl.js}"></script>
+</th:block>
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+    <link th:href="@{/css/itemDtl.css}" rel="stylesheet">
+</th:block>
+
+<div layout:fragment="content">
+    <div class="content_layout">
+        <input type="hidden" id="itemId" th:value="${item.id}">
+        <input type="hidden" id="memberEmail" th:value="${memberEmail}">
+        <input type="hidden" id="memberName" th:value="${memberName}">
+
+        <div class="top_type">
+            <label th:text="${item.bigName} + ' >'" class="text_bigHeader"></label>
+            <label th:text="${item.smallName}" class="text_bigHeader"></label>
+            <hr>
+        </div>
+
+        <div class="d-flex">
+            <div class="repImgDiv">
+                <img th:src="${item.itemImgDtoList[0].imgUrl}" class="rounded repImg" th:alt="${item.itemNm}">
+            </div>
+            <div class="wd50">
+                <span th:if="${item.itemSellStatus == T(com.flower.constant.ItemSellStatus).SELL}"
+                      class="badge bg-primary mgb-15 text_smallP">판매중</span>
+                <span th:unless="${item.itemSellStatus == T(com.flower.constant.ItemSellStatus).SELL}"
+                      class="badge bg-danger mgb-15 text_smallP">품절</span>
+                <div class="h4 text_midHeader" id="itemNm" th:text="${item.itemNm}"></div>
+                <hr class="my-4">
+                <div class="price_div">
+                    <div class="h4 text-left" th:if="${item.discountRate == null}">
+                        <input type="hidden" th:value="${item.price}" class="price" name="price">
+                        <span th:text="${item.price}" class="text_p" id="comma1"></span>
+                    </div>
+                    <div class="h4 text-left" th:unless="${item.discountRate == null}">
+                        <input type="hidden" th:value="${item.discountPrice}" class="price" name="price">
+                        <span th:text="${item.price}" id="comma2" class="text-danger text_smallP"></span>
+                        <span th:text="${item.discountRate} + '%'" class="text-danger text_smallP" ></span>
+                        <span th:text="${item.discountPrice}" class="text_p" id="comma3"></span>
+                    </div>
+                </div>
+
+                <hr class="my-4">
+                <div class="count_div">
+                    <div class="input-group w-50">
+                        <input type="button" class="count_num" id="prev" onclick="prev()">
+                        <input type="number" name="count" id="count" class="form-control text_p" value="1" min="1">
+                        <input type="button" class="count_num" id="next" onclick="next()">
+                        <input type="hidden" th:value="${item.stockNumber}" id="stockNumber">
+                    </div>
+                </div>
+                <hr class="my-4">
+
+                <div class="text-right mgt-50 total_price">
+                    <label class="text_midHeader">결제 금액</label>
+                    <label name="totalPrice" id="totalPrice" class="font-weight-bold text_smallHeader"></label>원
+                </div>
+                <div th:if="${item.itemSellStatus == T(com.flower.constant.ItemSellStatus).SELL}"
+                     class="text-right">
+                    <button type="button" class="btn btn-primary btn-lg order_btn text_button" onclick="order()">주문하기</button>
+                    <button type="button" class="btn btn-light border btn-lg add_cart_btn text_button" onclick="addCart()">
+                        장바구니 담기</button>
+                    <button type="button" class="pick_btn pickCancel" onclick="pickCancel()" th:if="${check == true}">
+                    </button>
+                    <button type="button" class="pick_btn pick text_button" onclick="pick()" th:unless="${check == true}">
+                        <span class="toolTip text_smallP">찜상품에 담아보세요</span>
+                    </button>
+                </div>
+                <div th:unless="${item.itemSellStatus == T(com.flower.constant.ItemSellStatus).SELL}"
+                     class="text-right">
+                    <button type="button" class="btn btn-danger btn-lg order_btn text_button">품절</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="link_div">
+            <ul class="link_ul">
+                <a href="#detailPage" class="link_a link_one text_p">상품 정보</a>
+                <a href="#afterPage" class="link_a text_p">상품 후기</a>
+                <a href="#deliveryPage" class="link_a text_p">배송 정보</a>
+                <a href="#changePage" class="link_a text_p">교환 정보</a>
+            </ul>
+        </div>
+
+        <div class="jumbotron jumbotron-fluid mgt-30" id="detailPage">
+            <div class="container">
+                <h4 class="display text_bigHeader">상품 상세 설명</h4>
+                <p class="lead display text_p" th:text="${item.itemDetail}"></p>
+            </div>
+        </div>
+        <div th:each="itemImg, num : ${item.itemImgDtoList}" class="text-center">
+            <img th:if="${not #strings.isEmpty(itemImg.imgUrl) and num.index != 0}" th:src="${itemImg.imgUrl}"
+                 class="rounded mgb-15" width="800">
+        </div>
+
+        <div class="link_div">
+            <ul class="link_ul">
+                <a href="#detailPage" class="link_a text_p">상품 정보</a>
+                <a href="#afterPage" class="link_a link_one text_p">상품 후기</a>
+                <a href="#deliveryPage" class="link_a text_p">배송 정보</a>
+                <a href="#changePage" class="link_a text_p">교환 정보</a>
+            </ul>
+        </div>
+
+        <div class="jumbotron jumbotron-fluid mgt-30" id="afterPage">
+            <div class="container">
+                <h4 class="display text_bigHeader">상품 후기</h4>
+                <div class="all_div">
+                    <div class="input-group comment_div">
+                        <textarea name="commentText" rows="3" placeholder="Enter Comment..." class="new_text text_p" id="newText"></textarea>
+                        <button type="button" id="newBtn" class="addBtn text_button">등록</button>
+                    </div>
+
+                    <div id="commentList">
+                        <ul th:each="ct, num: ${item.comments}" class="ul">
+                            <li>
+                                <label th:text="${ct.member.name}" class="label"></label>
+                                <input type="text" th:value="${ct.content}" th:if="${ct.member.email == who}" class="input text_p">
+                                <input type="text" th:value="${ct.content}" readonly th:unless="${ct.member.email == who}" class="input text_p">
+                                <label th:text="${#temporals.format(ct.regTime, 'yyyy-MM-dd HH:mm')}" class="label text_smallP"></label>
+                                <button th:data-commentid="${ct.id}" class="comment_btn text_button" th:if="${ct.member.email == who}" th:data-btn="${1}">수정</button>
+                                <button th:data-commentid="${ct.id}" class="comment_btn text_button" th:if="${ct.member.email == who}" th:data-btn="${2}">삭제</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <div class="link_div">
+            <ul class="link_ul">
+                <a href="#detailPage" class="link_a text_p">상품 정보</a>
+                <a href="#afterPage" class="link_a text_p">상품 후기</a>
+                <a href="#deliveryPage" class="link_a link_one text_p">배송 정보</a>
+                <a href="#changePage" class="link_a text_p">교환 정보</a>
+            </ul>
+        </div>
+
+        <div class="jumbotron jumbotron-fluid mgt-30" id="deliveryPage">
+            <div class="container">
+                <h4 class="display text_bigHeader">배송 정보</h4>
+                <img class="delivery">
+            </div>
+        </div>
+
+        <div class="link_div">
+            <ul class="link_ul">
+                <a href="#detailPage" class="link_a text_p">상품 정보</a>
+                <a href="#afterPage" class="link_a text_p">상품 후기</a>
+                <a href="#deliveryPage" class="link_a text_p">배송 정보</a>
+                <a href="#changePage" class="link_a link_one text_p">교환 정보</a>
+            </ul>
+        </div>
+
+        <div class="jumbotron jumbotron-fluid mgt-30" id="changePage">
+            <div class="container">
+                <h4 class="display text_bigHeader">교환 정보</h4>
+                <img class="exchange">
+            </div>
+        </div>
+    </div>
+</div>
+</html>

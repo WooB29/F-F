@@ -1,0 +1,38 @@
+.header{
+    border: none;
+    margin: 30px;
+}
+.header:focus{
+    outline: none;
+}
+
+.select_div{
+    width: 520px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 0 auto;
+}
+.select{
+    width: 30%;
+    height: 40px;
+    border: none;
+    text-align: center;
+    color: #0055B3;
+    border-radius: 7px;
+    box-shadow: 2px 2px 2px 2px #9DB1C5;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+.select_item{
+    border-radius: 6px;
+    width: 250px;
+    height: 40px;
+    text-align: center;
+}
+
+td{
+    width-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

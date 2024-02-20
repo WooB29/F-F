@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+<th:block layout:fragment="script">
+    <script type="text/javascript" th:src="@{/js/orderMng.js}"></script>
+</th:block>
+
+<th:block layout:fragment="css">
+    <link th:href="@{/css/orderMng.css}" rel="stylesheet">
+</th:block>
+
+<div layout:fragment="content">
+    <div class="content_layout">
+        <table class="table">
+            <thead style="text-align: center;">
+            <tr class="text_smallHeader">
+                <th>주문 번호</th>
+                <th>주문 날짜</th>
+                <th>주문 상태</th>
+                <th>상세 보기</th>
+            </tr>
+            </thead>
+            <tbody style="text-align: center;">
+            <th:block th:each="order, status: ${order.getContent()}">
+                <tr class="text_p">
+                    <td th:text="${order.orderId}" th:id="orderId+${status.index+1}"></td>
+                    <td th:text="${order.orderDate}"></td>
+                    <td th:if="${order.orderStatus == T(com.flower.constant.OrderStatus).ORDER}">배송 완료</td>
+                    <td th:if="${order.orderStatus == T(com.flower.constant.OrderStatus).CANCEL}">주문 취소</td>
+                    <td th:if="${order.orderStatus == T(com.flower.constant.OrderStatus).ORDER_WAIT}">주문 대기</td>
+                    <td th:if="${order.orderStatus == T(com.flower.constant.OrderStatus).CANCEL_WAIT}">취소 요청</td>
+                    <td th:if="${order.orderStatus == T(com.flower.constant.OrderStatus).RM}">상품 삭제</td>
+                    <td>
+                        <input type="checkbox" th:id=bottomCheck+${status.index+1} class="input_check" th:data-num="${status.index+1}">
+                        <label th:for=bottomCheck+${status.index+1} class="img_label"></label>
+                    </td>
+                </tr>
+                <tr class="li_tr">
+                    <td colspan="4" class="li_td" th:id="liTd+${status.index+1}" th:each="orderItem : ${order.orderItemDtoList}">
+                        <div class="td_div">
+                            <label class="td_label text_smallHeader">유저 ID</label>
+                            <input type="text" class="table_input text_p" th:value="${order.memberId}" readonly>
+                            <label class="td_label text_smallHeader">수량</label>
+                            <input type="text" class="table_input text_p" th:value="${orderItem.count}" readonly>
+                        </div>
+                        <div class="td_div">
+                            <label class="td_label text_smallHeader">상품 ID</label>
+                            <input type="text" class="table_input text_p" th:value="${orderItem.id}" readonly>
+                            <label class="td_label text_smallHeader">총가격</label>
+                            <input type="text" class="table_input text_p" th:value="${#numbers.formatInteger(orderItem.orderPrice, 3, 'COMMA')}" readonly>
+                        </div>
+                        <div class="td_div">
+                            <label class="td_label text_smallHeader">주문 상태</label>
+                            <select class="td_select text_p" th:id="orderStatus+${status.index+1}">
+                                <option value="ORDER">배송 완료</option>
+                                <option value="CANCEL">취소 완료</option>
+                                <option value="ORDER_WAIT">주문 대기</option>
+                                <option value="CANCEL_WAIT">취소 요청</option>
+                                <option value="RM">상품 삭제</option>
+                            </select>
+                            <button class="text_button save_btn" type="button" th:data-num="${status.index+1}">저장</button>
+                        </div>
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+
+        <div th:with="start=${(order.number/maxPage)*maxPage +1},
+                end=(${(order.totalPages == 0) ? 1 : (start + (maxPage-1) < order.totalPages ?
+                start + (maxPage -1) : order.totalPages)})">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:classappend="${order.number eq 0}?'disabled' : ''">
+                    <a th:href="@{'/admin/order/'+${order.number-1}}" aria-label="previous" class="page-link">
+                        <span aria-hidden="true" class="page_left"></span>
+                    </a>
+                </li>
+                <li class="page-item" th:each="page: ${#numbers.sequence(start,end)}"
+                    th:classappend="${order.number eq page-1}?'active':''">
+                    <a th:href="@{'/admin/order/' + ${page-1}}" th:inline="text" class="page-link text_p">[[${page}]]</a>
+                </li>
+                <li class="page-item" th:classappend="${order.number+1 ge order.totalPages}?'disabled' : ''">
+                    <a th:href="@{'/admin/order/'+${order.number+1}}" aria-label="Next" class="page-link">
+                        <span aria-hidden="true" class="page_right"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</html>

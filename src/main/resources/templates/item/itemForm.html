@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<!-- 사용자 스크립트 추가 -->
+<th:block layout:fragment="script">
+    <script type="text/javascript" th:src="@{/js/itemForm.js}"></script>
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            var errorMessage = [[${errorMessage}]];
+            if(errorMessage != null){
+                alert(errorMessage);
+            }
+            var smallTp = [[${smallType}]];
+            if(smallTp != null){
+                $("#smallType").val(smallTp).prop("selected",true);
+            }
+
+            var discountRate = [[${discountRate}]];
+            if(discountRate != null){
+                $("#discount_checkbox").prop("checked", true);
+                discount_check();
+            }
+        });
+    </script>
+</th:block>
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+    <link th:href="@{/css/itemForm.css}" rel="stylesheet">
+</th:block>
+<div layout:fragment="content">
+    <div class="content_layout">
+        <form role="form" class="container item_form" method="post" enctype="multipart/form-data" th:object="${itemFormDto}">
+            <p class="h2 text_bigHeader">상품 등록</p>
+
+            <input type="hidden" th:field="*{id}">
+
+            <div class="select_div">
+                <select th:field="*{itemSellStatus}" class="select text_p">
+                    <option value="SELL">판매중</option>
+                    <option value="SOLD_OUT">품절</option>
+                </select>
+                <select th:field="*{bigType}" id="bigType"  class="select text_p">
+                    <option value="FLOWER">꽃</option>
+                    <option value="PLANTS">식물</option>
+                    <option value="RAN">란</option>
+                    <option value="FLOWERY">화한</option>
+                </select>
+                <select th:field="*{smallType}" id="smallType" class="select text_p">
+                    <option id="zero" value="">==선택해주세요==</option>
+                    <option id="one" value="SINGLE">꽃 다발</option>
+                    <option id="two" value="MULTI">꽃 바구니</option>
+                </select>
+            </div>
+            <div class="form_div">
+                <p th:if="${#fields.hasErrors('smallType')}" th:errors="*{smallType}" class="error">Incorrect data</p>
+            </div>
+            <div class="form_div">
+                <label class="form_label text_p">상품명</label>
+                <input class="form_input text_p" type="text" th:field="*{itemNm}" placeholder="상품명을 입력해주세요.">
+            </div>
+            <div class="form_div">
+                <p th:if="${#fields.hasErrors('itemNm')}" th:errors="*{itemNm}" class="error">Incorrect data</p>
+            </div>
+            <div class="form_div">
+                <label class="form_label text_p">가격</label>
+                <input class="form_input text_p" type="number" th:field="*{price}" placeholder="상품의 가격을 입력해주세요." id="item_price">
+            </div>
+            <div class="form_div">
+                <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="error">Incorrect data</p>
+            </div>
+            <div class="form_div_discount">
+                <label class="text_p">
+                    할인 적용
+                    <input type="checkbox" id="discount_checkbox" onclick="discount_check()">
+                    할인율:
+                    <input type="number" id="discount_input" step="1" min="1" max="99" disabled th:field="*{discountRate}" class="text_p">
+                    %
+                </label>
+                <div>
+                    <label class="text_p">적용가
+                        <input type="text" id="discount_result" readonly th:field="*{discountPrice}" class="text_p">
+                        원
+                    </label>
+                </div>
+            </div>
+            <div class="form_div">
+                <p th:if="${#fields.hasErrors('discountRate')}" th:errors="*{discountRate}" class="error">Incorrect data</p>
+            </div>
+            <div class="form_div">
+                <label class="form_label text_p">재고</label>
+                <input class="form_input text_p" type="number" th:field="*{stockNumber}" placeholder="상품의 재고를 입력해주세요.">
+            </div>
+            <div class="form_div">
+                <p th:if="${#fields.hasErrors('stockNumber')}" th:errors="*{stockNumber}" class="error">Incorrect data</p>
+            </div>
+            <div class="form_div">
+                <label class="form_label text_p">상품 상세 내용</label>
+                <textarea aria-label="With textarea" th:field="*{itemDetail}" class="form_textarea text_p"></textarea>
+            </div>
+            <div class="form_div">
+                <p th:if="${#fields.hasErrors('itemDetail')}" th:errors="*{itemDetail}" class="error">Incorrect data</p>
+            </div>
+            <hr>
+            <div th:if="${#lists.isEmpty(itemFormDto.itemImgDtoList)}">
+                <div th:each="num: ${#numbers.sequence(1,5)}" class="img_div">
+                    <div class="filebox">
+                        <label th:text="상품이미지 + ${num}" class="img_label text_p"></label>
+                        <input class="upload_name text_p" value="첨부파일" placeholder="첨부파일" readonly th:classappend="name+${num}">
+                        <label th:for="file+${num}" class="file_name text_p">파일찾기</label>
+                        <input type="file" name="itemImgFile" th:data-num="${num}" class="img_input text_p" th:id="file+${num}">
+                        <img class ="preview" th:classappend="preview+${num}"/>
+                    </div>
+                </div>
+            </div>
+
+            <div th:if="${not #lists.isEmpty(itemFormDto.itemImgDtoList)}">
+                <div th:each="itemImgDto, status: ${itemFormDto.itemImgDtoList}" class="img_div">
+                    <div class="filebox">
+                        <label th:text="상품이미지 + ${status.index+1}" class="img_label text_p"></label>
+                        <input class="upload_name text_p" th:value="${not #strings.isEmpty(itemImgDto.oriImgName)} ? ${itemImgDto.oriImgName} : '첨부파일'"
+                               placeholder="첨부파일" readonly th:classappend="name+${status.index+1}">
+                        <label th:for="file1+${status.index+1}" class="file_name text_p">파일찾기</label>
+                        <input type="file"  name="itemImgFile" th:data-num="${status.index+1}" class="img_input text_p" th:id="file1+${status.index+1}">
+                        <img class ="preview" th:classappend="preview+${status.index+1}" th:src="${itemImgDto.imgUrl}"/>
+                        <input type="hidden" name="itemImgIds" th:value="${itemImgDto.id}">
+                    </div>
+                </div>
+            </div>
+
+            <div th:if="${#strings.isEmpty(itemFormDto.id)}" style="text-align : center">
+                <button th:formaction="@{/admin/item/new}" type="submit" class="btn btn-primary text_button">저장</button>
+            </div>
+            <div th:unless="${#strings.isEmpty(itemFormDto.id)}" style="text-align : center">
+                <button th:formaction="@{'/admin/item/'+${itemFormDto.id}}" type="submit" class="btn btn-primary text_button">수정</button>
+            </div>
+
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        </form>
+    </div>
+</div>
+</html>

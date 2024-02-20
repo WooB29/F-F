@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+
+<th:block layout:fragment="script">
+    <script type="text/javascript" th:src="@{/js/itemMng.js}"></script>
+</th:block>
+
+<th:block layout:fragment="css">
+    <link th:href="@{/css/itemMng.css}" rel="stylesheet">
+</th:block>
+
+<div layout:fragment="content">
+    <div class="content_layout">
+        <form th:action="@{'/admin/items/' + ${items.number}}" role="form" method="get" th:object="${items}">
+            <div th:object="${itemSearchDto}">
+                <div class="select_div">
+                    <select th:field="*{searchDateType}" class="select text_p">
+                        <option value="all">전체기간</option>
+                        <option value="1d">1일</option>
+                        <option value="1w">1주</option>
+                        <option value="1m">1개월</option>
+                        <option value="6m">6개월</option>
+                    </select>
+                    <select th:field="*{searchBigType}" class="select text_p">
+                        <option value="">상품분류(전체)</option>
+                        <option value="FLOWER">꽃</option>
+                        <option value="PLANTS">식물</option>
+                        <option value="RAN">란</option>
+                        <option value="FLOWERY">화한</option>
+                    </select>
+                    <select th:field="*{searchSellStatus}" class="select text_p">
+                        <option value="">판매상태(전체)</option>
+                        <option value="SELL">판매</option>
+                        <option value="SOLD_OUT">품절</option>
+                    </select>
+                </div>
+                <div class="select_div">
+                    <select th:field="*{searchBy}" class="select text_p">
+                        <option value="id">아이디</option>
+                        <option value="itemNm">상품명</option>
+                    </select>
+                    <input th:field="*{searchQuery}" type="text" class="select_item text_p" placeholder="검색어를 입력해주세요">
+                    <button id="searchBtn" type="submit" class="btn btn-outline-info text_p">검색</button>
+                </div>
+            </div>
+
+            <table class="table">
+                <thead>
+                <tr class="text_smallHeader" style="text-align:center;">
+                    <th>메인상품</th>
+                    <th>아이디</th>
+                    <th>상품명</th>
+                    <th>상태</th>
+                    <th>상품 분류</th>
+                    <th>등록일</th>
+                    <th>수정/삭제</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item, status: ${items.getContent()}" class="text_p" style="text-align:center;">
+                    <td th:if="${item.itemPick == T(com.flower.constant.ItemPick).PICK}">
+                        <button type="button" class="pick_btn" th:data-id="${item.id}"></button>
+                    </td>
+                    <td th:unless="${item.itemPick == T(com.flower.constant.ItemPick).PICK}">
+                        <button type="button" class="unPick_btn" th:data-id="${item.id}"></button>
+                    </td>
+                    <td th:text="${item.id}"></td>
+                    <td th:text="${item.itemNm}"></td>
+                    <td th:text="${item.itemSellStatus == T(com.flower.constant.ItemSellStatus).SELL} ? '판매중' : '품절'"></td>
+                    <td th:text="${item.bigTypeName}"></td>
+                    <td th:text="${#temporals.format(item.regTime, 'yyyy-MM-dd')}"></td>
+                    <td>
+                        <a th:href="'/admin/item/'+${item.id}" class="modify">수정&nbsp/</a>
+                        <a href="#" class="modify delete" th:data-id="${item.id}">&nbsp삭제</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div th:with="start=${(items.number/maxPage)*maxPage + 1},
+                end=(${(items.totalPages == 0) ? 1 : (start + (maxPage - 1) < items.totalPages ? start + (maxPage - 1) : items.totalPages)})">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" th:classappend="${items.first}?'disabled'">
+                        <a th:onclick="'javascript:page('+${items.number -1} + ')'" aria-label='Previous' class="page-link">
+                            <span aria-hidden="true" class="page_left"></span>
+                        </a>
+                    </li>
+                    <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${items.number eq page-1}?' active':''">
+                        <a th:onclick="'javascript:page(' + ${page -1} + ')'" th:inline="text" class="page-link text_p">[[${page}]]</a>
+                    </li>
+                    <li class="page-item" th:classappend="${items.last}?'disabled'">
+                        <a th:onclick="'javascript:page(' + ${items.number + 1} + ')'" aria-label="Next" class="page-link">
+                            <span aria-hidden="true" class="page_right"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </form>
+    </div>
+</div>
+</html>

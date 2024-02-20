@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+</head>
+
+<th:block layout:fragment="script">
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+    <script type="text/javascript" th:src="@{/js/cartList.js}"></script>
+</th:block>
+
+<th:block layout:fragment="css">
+    <link th:href="@{/css/cartList.css}" rel="stylesheet">
+</th:block>
+
+<div layout:fragment="content">
+    <div class="content_layout">
+        <div class="content-mg">
+            <h2 class="mb-4 text_bigHeader">장바구니 목록</h2>
+            <input type="hidden" id="memberEmail" th:value="${memberEmail}">
+            <div>
+                <table class="table">
+                    <colgroup>
+                        <col width="10%">
+                        <col width="70%">
+                        <col width="15%">
+                        <col width="5%">
+                    </colgroup>
+                    <thead>
+                    <tr class="text-center">
+                        <td>
+                            <input type="checkbox" id="checkall" onclick="checkAll()" class="checkbox">
+                            <label for="checkall" class="check_label"></label>
+                        </td>
+                        <td class="text_midHeader">상품정보</td>
+                        <td class="text_midHeader">주문금액</td>
+                        <td></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="cartItem, num : ${cartItems}">
+                        <input type="hidden" th:value="${cartItem.stockNumber}" th:id="'stockNumber_'+${cartItem.cartItemId}">
+                        <td class="text-center align-middle">
+                            <input type="checkbox" name="cartChkBox" th:value="${cartItem.cartItemId}"
+                                   th:id="check+${num.index}" class="checkbox">
+                            <label th:for="check+${num.index}" class="check_label"></label>
+                        </td>
+                        <td class="d-flex text-center">
+                            <div class="repImgDiv align-self-center">
+                                <img th:src="${cartItem.imgUrl}" class="rounded repImg" th:alt="${cartItem.itemNm}">
+                            </div>
+                            <h4 th:text="${cartItem.itemNm}" class="fs24 font-weight-bold text_smallHeader"
+                            th:id="'itemNm_'+${cartItem.cartItemId}"></h4>
+                            <div class="align-self-center card_item">
+                                <div th:if="${cartItem.discountPrice == null}">
+                                    <span th:id="'price_' + ${cartItem.cartItemId}" th:data-price="${cartItem.price}"
+                                          th:text="${#numbers.formatInteger(cartItem.price, 3, 'COMMA')} + '원'" class="align-self-center mr-2 text_p">
+                                    </span>
+                                </div>
+                                <div th:unless="${cartItem.discountPrice == null}">
+                                    <span th:text="${#numbers.formatInteger(cartItem.price, 3, 'COMMA')} + '원'" class="align-self-center mr-2 text-danger  text_smallP"
+                                          style="text-decoration: line-through;">
+                                    </span>
+                                    <span th:text="${cartItem.discountRate} +'%'" class="text_p"></span>
+                                    <span th:text="${#numbers.formatInteger(cartItem.discountPrice, 3, 'COMMA')} + '원'" th:id="'price_' + ${cartItem.cartItemId}"
+                                          th:data-price="${cartItem.discountPrice}" class="text_p"></span>
+                                </div>
+                                <div class="input-group">
+                                    <input type="button" class="count_num prev">
+                                    <input type="number" name="count" th:id="'count_' + ${cartItem.cartItemId}"
+                                            th:value="${cartItem.count}" min="1" onchange="changeCount(this)" class="count-control text_p">
+                                    <input type="button" class="count_num next">
+                                </div>
+
+
+                            </div>
+                        </td>
+                        <td class="text-center align-middle">
+                            <span th:if="${cartItem.discountPrice == null}" th:id="'totalPrice_'+${cartItem.cartItemId}" name="totalPrice"
+                                  th:text="${#numbers.formatInteger((cartItem.price * cartItem.count), 3, 'COMMA')} + '원'" class="text_p"></span>
+                            <span th:unless="${cartItem.discountPrice == null}" th:id="'totalPrice_'+${cartItem.cartItemId}" name="totalPrice"
+                                  th:text="${#numbers.formatInteger((cartItem.discountPrice * cartItem.count), 3, 'COMMA')} + '원'" class="text_p"></span>
+                        </td>
+
+                        <td class="delete_td">
+                            <button type="button" aria-label="Close" aria-hidden="true"
+                                    th:data-id="${cartItem.cartItemId}" onclick="deleteCartItem(this)" class="close">
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <h2 class="text-center text_midHeader">
+                    총 주문 금액 : <span id="orderTotalPrice" class="text-danger">0원</span>
+                </h2>
+                <div class="text-center mt-3">
+                    <button type="button" class="btn btn-primary btn-lg text_button" onclick="orders()">주문하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

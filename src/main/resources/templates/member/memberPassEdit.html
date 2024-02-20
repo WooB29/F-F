@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+
+<th:block layout:fragment="script">
+    <script type="text/javascript" th:src="@{/js/memberPassEdit.js}"></script>
+</th:block>
+
+<th:block layout:fragment="css">
+    <link th:href="@{/css/memberPassEdit.css}" rel="stylesheet">
+</th:block>
+<div layout:fragment="content">
+    <div class="content_layout">
+        <div class="pass_div">
+            <h2 class="text_bigHeader h2">비밀번호 수정</h2>
+            <div class="form_input">
+                <label class="label text_p">비밀번호</label>
+                <input type="password" class="inputBox text_p" placeholder="4글자 ~ 8글자" id="pass">
+            </div>
+            <div class="form_input" id="passField">
+                <label class="label text_p">비밀번호 확인</label>
+                <input type="password" class="inputBox text_p" placeholder="비밀번호 재입력" id="passRe">
+            </div>
+            <div class="form_input">
+                <p class="error" id="error"></p>
+            </div>
+            <div class="form_input">
+                <input type="button" class="inputBtn text_smallHeader" value="비밀번호 수정" id="passBtn">
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

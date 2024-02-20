@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+
+<th:block layout:fragment="script">
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5c9224abb88bdd59bf74365724e5cab0&libraries=services"></script>
+</th:block>
+
+<th:block layout:fragment="css">
+    <link th:href="@{/css/map.css}" rel="stylesheet">
+</th:block>
+
+<div layout:fragment="content">
+    <div class="content_layout">
+        <h2 class="title text_bigHeader text_title">찾아오는 길</h2>
+        <div class="map_div">
+            <div id="map" class="map"></div>
+            <div class="map_text">
+                <h4 class="text_midHeader">F & F</h4>
+                <p class="text_p">인천 부평구 경원대로 1366</p>
+                <p class="text_p">부평역 5번 출구에서 262m</p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" th:src="@{/js/map.js}"></script>
+</div>
+</html>

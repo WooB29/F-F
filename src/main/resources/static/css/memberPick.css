@@ -1,0 +1,58 @@
+.content_line{
+    width: 100%;
+    text-align: center;
+    list-style-type: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 8px;
+}
+.header_text{
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.card{
+    text-align: center;
+    width: 300px;
+    height: 400px;
+    margin: 0 auto;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 0px 15px 1px #FFBFBF;
+    cursor: pointer;
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.card:hover{
+    transform: scale(1.02);
+}
+
+.content_item{
+    display: inline-block;
+    border-top: 1px solid #FFCCB9;
+    margin-top: 20px;
+}
+
+.heart_img{
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    margin-top: -25px;
+}
+
+.heart_img:hover{
+    content: url(/img/breakHeart.gif);
+}
+
+.card_img{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.card_name{
+    margin-top: 10px;
+    margin-bottom: 60px;
+}

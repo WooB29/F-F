@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div th:fragment="header">
+    <form class="search_Form" th:action="@{/}" method="get">
+        <a class="home_a link-opacity-50-hover" href="/">F & F</a>
+
+        <nav class="navbar navbar-expand-lg flex_persent">
+            <div class="container">
+                <div class="header_div" id="navbarTogglerDemo03">
+                    <ul class="header_ul">
+                        <li class="header_li">
+                            <div class="dropdown">
+                                <a class="dropbtn header_a">Info</a>
+                                <div class="dropdown-content">
+                                    <a class="header_a" href="/api/map">찾아오는 길</a>
+                                    <a class="header_a" href="/api/identify-flower">꽃 스캔</a>
+                                    <a class="header_a" href="/api/todaySearch">꽃 검색</a>
+                                    <a class="header_a" href="/api/today-flower">오늘의 꽃</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="header_li">
+                            <div class="dropdown">
+                                <a class="dropbtn header_a">Product</a>
+                                <div class="dropdown-content">
+                                    <a class="header_a" href="/item/list/flower">꽃</a>
+                                    <a class="header_a" href="/item/list/plants">식물</a>
+                                    <a class="header_a" href="/item/list/ran">란</a>
+                                    <a class="header_a" href="/item/list/flowery">화한</a>
+
+                        </li>
+                        <li class="header_li">
+                            <div class="dropdown">
+                                <a class="dropbtn header_a">Community</a>
+                                <div class="dropdown-content">
+                                    <a class="header_a" href="/community/notice">공지사항</a>
+                                    <a class="header_a" href="/community/qna">Q & A</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="search_div">
+            <input name="searchQuery" class="search_Input"
+                   placeholder="Search" aria-label="Search">
+            <button class="search_Btn" type="submit"></button>
+        </div>
+        <ul class="log_ul">
+            <li class="log_li" sec:authorize="hasAnyAuthority('ROLE_USER')">
+                <div class="dropdown log_dropdown">
+                    <a class="dropbtn header_a">
+                        <span th:if="${#authentication.principal instanceof T(com.flower.config.CustomUserDetails)}" th:text="${#authentication.principal.displayName+'님'}"></span>
+                        <span th:unless="${#authentication.principal instanceof T(com.flower.config.CustomUserDetails)}" th:text="${#authentication.principal.attributes['displayName']}+'님'"></span>
+                        <img src="/img/menu.png">
+                    </a>
+                    <ul class="dropdown-content">
+                        <a class="header_a" href="/members/modify">회원정보 수정</a>
+                        <a class="header_a" href="/members/pick">관심 상품</a>
+                        <a class="header_a" href="/cart">장바구니</a>
+                        <a class="header_a" href="/orders">구매이력</a>
+                    </ul>
+                </div>
+            </li>
+            <li class="log_li" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+                <div class="dropdown log_dropdown">
+                    <a class="dropbtn header_a">
+                        <span>관리자<img src="/img/menu.png"></span>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="/admin/members" class="header_a">유저관리</a>
+                        <a href="/admin/item/new" class="header_a">상품등록</a>
+                        <a href="/admin/items" class="header_a">상품관리</a>
+                        <a href="/admin/order" class="header_a">주문관리</a>
+                        <a href="/error/err" class="header_a">오류관리</a>
+                    </div>
+                </div>
+            </li>
+            <li class="log_li" sec:authorize="isAnonymous()">
+                <a href="/members/login" class="header_a">Log In</a>
+            </li>
+            <li class="log_li" sec:authorize="isAuthenticated()">
+                <a href="/members/logout" class="header_a">Log Out</a>
+            </li>
+        </ul>
+    </form>
+
+    <div class="fix_item">
+        <label class="text_smallP">최근 본 상품</label>
+        <div th:each="item : ${recentItems}" class="fix_div">
+            <a th:href="'/item/' +${item.id}">
+                <img class="fix_img" th:src="${item.imgUrl}" th:alt="${item.itemNm}">
+            </a>
+        </div>
+        <a href="#" class="text_midHeader topMove">
+            <img src="/img/pageUp.png">
+            <span class="topTip text_smallP">위로 이동</span>
+        </a>
+    </div>
+</div>
+</html>

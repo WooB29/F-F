@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+
+<th:block layout:fragment="script">
+    <script type="text/javascript" th:src="@{/js/todaySearch.js}"></script>
+</th:block>
+
+<th:block layout:fragment="css">
+    <link th:href="@{/css/todaySearch.css}" rel="stylesheet">
+</th:block>
+
+<div layout:fragment="content">
+
+    <div class="content_layout">
+
+        <div class="content_layout">
+            <h2 class="text_midHeader" id="h2Title" style="text-align: center;"></h2>
+            <div class="search_flower">
+                <div class="search_flower_div">
+                    <select id="search_data" class="text_p flower_select">
+                        <option value="date">날짜</option>
+                        <option value="name">이름</option>
+                        <option value="language">꽃말</option>
+                    </select>
+                    <div id="search_form" class="text_p"></div>
+                </div>
+                <button id="search_button" class="text_button">검색</button>
+            </div>
+            <input type="hidden" id="pageData">
+            <div id="searchDataList" class="search_data_list">
+                <div class="list_items">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</html>

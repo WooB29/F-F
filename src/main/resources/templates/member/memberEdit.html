@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+
+<th:block layout:fragment="script">
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script type="text/javascript" th:src="@{/js/memberEdit.js}"></script>
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            var errorMessage = [[${errorMessage}]];
+            if(errorMessage != null){
+                alert(errorMessage);
+            }
+        });
+    </script>
+</th:block>
+
+<th:block layout:fragment="css">
+    <link th:href="@{/css/memberEdit.css}" rel="stylesheet">
+</th:block>
+<div layout:fragment="content">
+    <div class="content_layout">
+        <form role="form" class="member_form" method="post" th:object="${memberEditDto}">
+            <h2 class="text_bigHeader h2">회원정보 수정</h2>
+            <div class="form_input">
+                <label th:for="email" class="label text_p">이메일</label>
+                <input type="text" th:field="*{email}" class="inputBox text_p" id="emailInput" readonly>
+            </div>
+            <div class="form_input">
+                <label th:for="name" class="label text_p">이름</label>
+                <input type="text" th:field="*{name}" class="inputBox text_p" id="nameInput">
+            </div>
+            <div class="form_input">
+                <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error">Incorrect data</p>
+            </div>
+            <div class="form_input">
+                <label th:for="phone" class="label text_p">전화번호</label>
+                <input type="text" th:field="*{phone}" class="inputBox text_p" id="phoneInput">
+            </div>
+            <div class="form_input">
+                <p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="error">Incorrect data</p>
+            </div>
+            <div class="form_input">
+                <label th:for="address" class="label text_p">주소</label>
+                <input type="button" onclick="address_Btn()" value="찾기" class="member_btn text_smallHeader"><br>
+            </div>
+            <div class="form_input">
+                <input type="text" th:field="*{address1}" class="inputBox text_p" placeholder="우편번호" id="post_Address">
+                <input type="text" th:field="*{address2}" class="inputBox text_p" placeholder="주소" id="main_Address">
+                <input type="text" th:field="*{address3}" class="inputBox text_p" placeholder="상세주소" id="detail_Address">
+            </div>
+            <div class="form_input">
+                <p th:if="${#fields.hasErrors('address1')}" th:errors="*{address1}" class="error">Incorrect data</p>
+                <p th:if="${#fields.hasErrors('address2')}" th:errors="*{address2}" class="error">Incorrect data</p>
+                <p th:if="${#fields.hasErrors('address3')}" th:errors="*{address3}" class="error">Incorrect data</p>
+            </div>
+            <div class="form_input">
+                <input type="button" class="inputBtn text_smallHeader" id="passBtn" value="비밀번호 변경">
+            </div>
+            <div class="form_input">
+                <input type="submit" class="inputBtn text_smallHeader" value="수정">
+            </div>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

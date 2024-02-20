@@ -1,0 +1,120 @@
+.find_table th {
+    background-color: #f2f2f2;
+}
+.find_table td{
+    height: 120px;
+
+}
+.img_td{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.img_name{
+    line-height: 100px;
+    width: 25%;
+}
+.img_btn{
+    width: 15%;
+}
+
+.find_tbody button {
+    background-color: #429089;
+    color: white;
+    border: none;
+    margin: 0;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    border-radius: 7px;
+}
+
+.find_tbody button:hover {
+    background-color: #32706b;
+}
+.find_tbody button:active{
+    transform: translateY(3px);
+}
+
+.find_flower {
+    text-align: center;
+}
+
+#imageFileInput {
+    margin: 20px auto;
+}
+
+#uploadedImage {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    margin-top: 20px;
+    border: 1px solid #eee;
+    border-radius: 7px;
+}
+.find_btn{
+    padding: 15px;
+    background-color: white;
+    border-radius: 8px;
+    background-color: #429089;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    width: 30%;
+    margin: 0 auto;
+}
+
+.find_btn:hover{
+    background-color: #32706b;
+}
+
+.find_btn:active{
+    transform: translateY(3px);
+}
+
+.file_input{
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.find_form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.close{
+    font-size: 50px;
+    cursor: pointer;
+    color: #F00000;
+}
+
+.close:hover{
+    color: #C2F9FF;
+}
+
+.modal_content{
+    width: 600px;
+    height: 500px;
+    margin: auto;
+}
+
+.img_img{
+    border-radius: 5px;
+}

@@ -1,0 +1,104 @@
+.today_div{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.today_div h3{
+    color: #A57D27;
+}
+
+.today_div p{
+    color: #D4A53F;
+}
+
+.today_div img {
+    width: 500px;
+    height: 500px;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-radius: 15px;
+}
+.today_div button, .flower_info button{
+    width: 30%;
+    height: 50px;
+    margin: auto;
+    background-color: #47706F;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+}
+.today_div button:hover{
+    background-color: #3B6369;
+}
+
+.today_div button:active{
+    transform:translateY(3px);
+}
+
+
+.flower_info{
+    display: none;
+    margin: 3rem;
+}
+.info_date{
+    text-align: center;
+}
+
+.info_date label{
+    margin: 20px 5px;
+}
+
+
+.info_div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.img_div{
+    width: 45%;
+}
+
+.details{
+    width: 45%;
+}
+
+.images {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.images img{
+    width: 33%;
+    height: 150px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#bigImg{
+    width: 100%;
+    height: 450px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.details_label label{
+    margin: 10px 5px;
+    color: #D4A53F;
+}
+
+.details_label label:first-child{
+    color: #A57D27;
+}
+
+.details_text h4{
+    color: #FE8A7E;
+}
+
+.details_text p{
+    padding-left: 20px;
+    margin-bottom: 20px;
+}

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<th:block layout:fragment="script">
+    <script type="text/javascript" th:src="@{/js/main.js}"></script>
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            var errorMessage = [[${errorMessage}]];
+            if(errorMessage != null){
+                alert(errorMessage);
+            }
+        });
+    </script>
+</th:block>
+
+<th:block layout:fragment="css">.
+    <link th:href="@{/css/main.css}" rel="stylesheet">
+</th:block>
+<div layout:fragment="content">
+
+    <div class="banner">
+        <div class="banner_div">
+            <div class="banner_div_div">
+                <img class="banner_backimg" src="/img/banner1.jpg">
+                <div class="banner_div_div_div">
+                    <div class="banner_img_Group">
+                        <ul class="banner_img">
+                            <th:block th:each="item, num: ${bannerItems}">
+                                <li th:id="a+${num.index+1}" class="banner_img_li">
+                                    <img class="banner_itemImg" th:src="${item.imgUrl}" th:alt="${item.itemNm}">
+                                </li>
+                            </th:block>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <th:block th:each="item, num: ${bannerItems}">
+                <div class="banner_text" th:id="b+${num.index+1}" aria-hidden="true">
+                    <h2 class="text_bigHeader" th:text="${item.itemNm}"></h2>
+                    <p class="text_p" th:text="${item.itemDetail}"></p>
+                    <a class="text_smallP text_a" th:href="'/item/'+${item.id}">상품보러가기<img src="./img/right_arrow.png"></a>
+                </div>
+            </th:block>
+        </div>
+
+        <div class="banner_nextItem">
+            <th:block th:each="item, num: ${bannerItems}">
+                <div class="banner_nextItem_imgGroup" th:id="c+${num.index+1}" aria-hidden="true">
+                    <img class="banner_smallImg" th:src="${item.imgUrl}" th:alt="${item.itemNm}">
+                    <p class="text_smallP" th:text="${item.itemNm}"></p>
+                </div>
+            </th:block>
+            <div class="banner_next_btnGroup">
+                <button class="banner_btn" id="bannerPrev"></button>
+                <strong class="text_smallHeader" id="page"></strong>
+                <label class="text_smallP" id="total"></label>
+                <button class="banner_btn" id="bannerNext"></button>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="content_layout">
+
+        <div class="content_first" th:unless="${not #strings.isEmpty(itemSearchDto.searchQuery)}">
+            <div class="content_text">
+                <div>
+                    <h1 class="text_midHeader">
+                        Time is flying<br>
+                        never to return
+                    </h1>
+                    <p class="text_p">
+                        단 하루, 특별한 날을 더 빛나게 <br>
+                        특별한 사람을 위해
+                    </p>
+                    <a class="arrow_a text_smallP" href="/item/list/flower">상품 보러가기<img src="/img/right_arrow.png" class="arrow"></a>
+                </div>
+                <div>
+                    <h1 class="text_midHeader">
+                        Flowers always make people<br>
+                        better, happier <br>
+                        and more helpful
+                    </h1>
+                    <p class="text_p">
+                        행복한 하루는 한송이의 꽃으로도<br>
+                        더 향기롭게
+                    </p>
+                </div>
+            </div>
+
+            <div class="content_url">
+
+                <a class="url_item" href="/api/map">
+                    <img src="/img/map.png" class="url_img">
+                    <label class="text_smallHeader url_label">
+                        SHOP<br>
+                        find a way
+                    </label>
+                </a>
+
+                <a class="url_item" href="/api/identify-flower">
+                    <img src="/img/scan.png" class="url_img">
+                    <label class="text_smallHeader url_label">
+                        Scan<br>
+                        a flowers
+                    </label>
+                </a>
+
+                <a class="url_item" href="/api/today-flower">
+                    <img src="/img/flower.png" class="url_img">
+                    <label class="text_smallHeader url_label">
+                        Search<br>
+                        today flower
+                    </label>
+                </a>
+            </div>
+
+        </div>
+
+        <div class="content_item">
+            <input type="hidden" name="searchQuery" th:value="${itemSearchDto.searchQuery}" id="searchQuery">
+            <div class="search_result text_bigHeader" th:if="${not #strings.isEmpty(itemSearchDto.searchQuery)}"
+                  th:text="${itemSearchDto.searchQuery + ' 검색 결과'}"></div>
+
+
+            <div th:unless="${not #strings.isEmpty(itemSearchDto.searchQuery)}">
+                <label class="text_midHeader text_title">[ 베스트 셀러 ]</label>
+
+                <div class="btn_div">
+                    <div class="slide_wrapper">
+                        <ul class="slides">
+                            <th:block th:each="item, status: ${bestItems}">
+                                <li class="item_li">
+                                    <a th:href="'/item/'+${item.id}">
+                                        <label class="number text_p" th:text="${status.index+1}"></label>
+                                        <img th:src="${item.imgUrl}" th:alt="${item.itemNm}">
+                                        <h3 class="item_card_title text_smallHeader" th:text="${item.itemNm}"></h3>
+                                        <div th:if="${item.discountRate != null}">
+                                            <h3 class="item_card_title text_p" th:text="${#numbers.formatInteger(item.discountPrice, 3, 'COMMA') + '원'}"></h3>
+                                            <label class="item_card_text text-danger text_smallP" style="text-decoration: line-through;" th:text="${#numbers.formatInteger(item.price, 3, 'COMMA') + '원'}"></label>
+                                            <label class="discounted_price text-danger text_smallP" th:text="${item.discountRate + '%'}"></label>
+                                        </div>
+                                        <div th:unless="${item.discountRate != null}">
+                                            <h3 class="item_card_title text_p" th:text="${#numbers.formatInteger(item.price, 3, 'COMMA') + '원'}"></h3>
+                                        </div>
+                                    </a>
+                                </li>
+                            </th:block>
+                        </ul>
+                    </div>
+                    <button class="prev" onclick="moveLeft()"></button>
+                    <button class="next" onclick="moveRight()"></button>
+                </div>
+
+
+            <label class="text_midHeader text_title">[ 전체 상품 ]</label>
+            </div>
+
+
+
+            <div class="card_box">
+                <th:block th:each="item, status: ${items.getContent()}">
+                    <div class="item_card">
+                        <a th:href="'/item/' +${item.id}" >
+                            <img th:src="${item.imgUrl}" th:alt="${item.itemNm}">
+                            <div class="type_name">
+                                <label th:text="${item.bigType}" class="text_p"></label>
+                            </div>
+                            <div class="item_card_body">
+                                <h3 class="item_card_title text_smallHeader" th:text="${item.itemNm}"></h3>
+                                <div th:if="${item.discountRate != null}">
+                                    <h3 class="item_card_title text_p" th:text="${#numbers.formatInteger(item.discountPrice, 3, 'COMMA') + '원'}"></h3>
+                                    <label class="item_card_text text-danger text_smallP" style="text-decoration: line-through;" th:text="${#numbers.formatInteger(item.price, 3, 'COMMA') + '원'}"></label>
+                                    <label class="discounted_price text-danger text_smallP" th:text="${item.discountRate + '%'}"></label>
+                                </div>
+                                <div th:unless="${item.discountRate != null}">
+                                    <h3 class="item_card_title text_p" th:text="${#numbers.formatInteger(item.price, 3, 'COMMA') + '원'}"></h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </th:block>
+            </div>
+            <input type="hidden" th:id="totalpage" th:value="${totalPage}">
+            <input type="hidden" th:id="currentPage" th:value="${items.number}">
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

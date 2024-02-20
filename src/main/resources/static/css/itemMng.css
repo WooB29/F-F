@@ -1,0 +1,60 @@
+.select_div{
+    width: 520px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 0 auto;
+}
+.select{
+    width: 30%;
+    height: 40px;
+    border: none;
+    text-align: center;
+    color: #0055B3;
+    border-radius: 7px;
+    box-shadow: 2px 2px 2px 2px #9DB1C5;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+.select_item{
+    border-radius: 6px;
+    width: 250px;
+    height: 40px;
+    text-align: center;
+}
+.modify{
+    text-decoration-line: none;
+    color: #00899A;
+    cursor: pointer;
+}
+.modify:link  {
+    color: #00899A;
+}
+.modify:visited{
+    color: #00899A;
+}
+.modify:active{
+    color: #00899A;
+}
+
+.pick_btn, .unPick_btn{
+    width: 30px;
+    height: 30px;
+    border: none;
+
+}
+
+.pick_btn{
+    background: url(/img/fullStar.png);
+    background-size: cover;
+}
+
+.unPick_btn{
+    background: url(/img/noneStar.png);
+    background-size: cover;
+}
+
+.unPick_btn:hover{
+    background: url(/img/actionStar.gif);
+    background-size: cover;
+}

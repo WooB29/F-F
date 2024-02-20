@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+
+<th:block layout:fragment="script">
+    <script type="text/javascript" th:src="@{/js/kind.js}"></script>
+</th:block>
+
+<th:block layout:fragment="css">
+    <link th:href="@{/css/kind.css}" rel="stylesheet">
+</th:block>
+
+<div layout:fragment="content">
+
+    <div class="content_layout">
+        <div class="find_flower">
+            <h2 class="text_midHeader">꽃 식별하기</h2>
+            <form id="flowerForm" class="find_form" enctype="multipart/form-data">
+                <label for="imageFileInput" class="file_label find_btn text_button">파일선택</label><br>
+                <input type="file" id="imageFileInput" name="imageFile" class="file_input"><br>
+                <img id="uploadedImage"><br>
+                <button type="button" onclick="identifyFlower()" class="find_btn text_button">꽃 식별하기</button>
+            </form>
+
+            <div id="flowerResult">
+                <h2 class="text_midHeader">꽃 식별 결과</h2>
+                <p id="resultMessage" class="text_p">결과가 없습니다.</p>
+                <table id="resultTable" class="find_table table">
+                    <thead>
+                    <tr class="text_midHeader">
+                        <th>식물 이름</th>
+                        <th>유사 이미지</th>
+                        <th>검색</th>
+                    </tr>
+                    </thead>
+                    <tbody id="resultBody" class="find_tbody">
+                    </tbody>
+                </table>
+                <div id="myModal" class="modal">
+                    <div class="modal_content">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

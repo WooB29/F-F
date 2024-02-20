@@ -1,0 +1,180 @@
+body{
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+
+.firstall_div{
+    box-shadow: 0 0.25rem 0.65rem rgba(0, 0, 0, 0.2);
+    width : 50%;
+    margin: 0 auto;
+    padding-top: 1.25rem;
+    border-radius: 8px;
+}
+
+/*
+상단 이름
+*/
+.h2{
+    margin-top: 1.25rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.h2 h2{
+    margin-left: 3.75rem;
+    text-shadow: 1px 2px 5px black;
+}
+/*
+화살표
+*/
+.change_div{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 1.25rem;
+}
+.input_check{
+    display: none;
+}
+.arrow_button{
+    background-color: white;
+    transition: 0.5s;
+    width: 5rem;
+    height: 5rem;
+    cursor: pointer;
+    position: relative;
+    opacity: 100%;
+    transition: transform 0.2s ease-in-out;
+}
+.arrow_button:hover{
+    transform: rotate(5deg);
+}
+
+.arrow_button::before{
+    content: url(/img/arrow1.png);
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform-origin: center;
+    transition: transform 1s;
+}
+input:checked + .arrow_button:before{
+    transform: rotate(90deg);
+}
+/*
+로그인 폼
+*/
+.first_div{
+    justify-content: center;
+    text-align: center;
+}
+.form{
+    margin: 0px auto;
+    width: 28.125rem;
+    display: inline-block;
+    padding: 0.313rem;
+    padding-bottom: 4.375rem;
+    border-radius: 1px;
+}
+
+.label{
+    opacity: 50%;
+}
+
+.inputBox{
+    text-align: center;
+    width: 60%;
+    height: 2.5rem;
+    border: none;
+    border-bottom: 1px solid rgb(210, 210, 210);
+    margin-bottom: 1.25rem;
+    transition: border-bottom 0.3s;
+}
+
+.inputBtn{
+    background-color: #00776A;
+    color: white;
+    margin-top: 1.25rem;
+    text-align: center;
+    font-size: 1.563rem;
+    width: 80%;
+    height: 3.75rem;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease-out;
+}
+.inputBtn:hover{
+    background-color: #45A298;
+}
+
+.form_input{
+    margin-bottom: 1.875rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: baseline;
+}
+
+
+.oauthBtn[name="google"]{
+    background: url(/img/google.png);
+    background-size: 100% 100%;
+}
+.oauthBtn[name="naver"]{
+    background: url(/img/naver.png);
+    background-size: 100% 100%;
+}
+.oauthBtn[name="kakao"]{
+    background: url(/img/kakao.png);
+    background-size: 100% 100%;
+}
+/*
+회원가입
+*/
+#sign_form{
+    display: none;
+}
+
+.email_btn{
+    padding: 0.938rem 0.938rem;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #AC7668;
+    color: #FEFEDF;
+    border: none;
+    transition: background-color 0.3s ease-out;
+}
+
+.email_btn:hover{
+    background-color: #9D6870;
+}
+
+.inputBox:focus {
+    outline:none;
+    border-bottom: 2px solid #BB4C89;
+}
+
+#email_key{
+    display: none;
+}
+
+#sign_h2{
+    opacity : 10%;
+}
+
+.oauthBtn{
+    width : 25rem;
+    height : 4.063rem;
+    border : none;
+}
+
+.area_size{
+    width : 6.25rem;
+}
+

@@ -1,0 +1,82 @@
+.text_title{
+    margin: 1rem 1rem;
+}
+
+.error{
+    color : #EE005F;
+    font-weight : 550;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    font-family: 'SUITE-Regular';
+}
+
+.page-link{
+    cursor : pointer;
+}
+
+a{
+    text-decoration-line: none;
+}
+
+a:link{
+    color: black;
+}
+a:visited{
+    color: black;
+}
+a:active{
+    color: black;
+}
+
+.text_bigHeader{
+    font-size: 2.2rem;
+    font-family: 'Cafe24Ssurround';
+}
+
+.text_midHeader{
+    font-size: 1.6rem;
+    font-family: 'NPSfontBold';
+}
+
+.text_smallHeader{
+    font-size: 1.25rem;
+    font-family: 'NanumSquareNeo-Variable';
+}
+
+.text_p{
+    font-size: 1rem;
+    font-family: 'Pretendard-Regular';
+}
+
+.text_smallP{
+    font-size: 0.7rem;
+    font-family: 'Pretendard-Regular';
+}
+
+.text_button{
+    font-size: 1.25rem;
+    font-family: 'TAEBAEKfont';
+}
+
+.page_left{
+    width:0.938rem;
+    height:0.938rem;
+    display:inline-block;
+    background-image: url(/img/pageLeft.png);
+    background-size:cover;
+}
+
+.page_right{
+    width:0.938rem;
+    height:0.938rem;
+    display:inline-block;
+    background-image: url(/img/pageRight.png);
+    background-size:cover;
+}
+
+#spinner {
+    display : none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+}

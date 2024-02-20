@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<th:block layout:fragment="script">
+    <script type="text/javascript" th:src="@{/js/itemList.js}"></script>
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            var errorMessage = [[${errorMessage}]];
+            if(errorMessage != null){
+                alert(errorMessage);
+                location.href='/members/login';
+            }
+        });
+    </script>
+</th:block>
+
+<th:block layout:fragment="css">.
+    <link th:href="@{/css/itemList.css}" rel="stylesheet">
+</th:block>
+<div layout:fragment="content">
+
+    <div class="content_layout">
+        <label th:text="'[ '+${where}+' ]'" class="text_midHeader text_title"></label>
+
+        <div class="card_box">
+            <th:block th:each="item, status: ${itemOne}">
+                <div class="item_card">
+                    <a th:href="'/item/' +${item.id}" >
+                        <img th:src="${item.imgUrl}" th:alt="${item.itemNm}">
+                        <label th:text="${item.smallType}" class="type_name text_p"></label>
+                        <div class="item_card_body">
+                            <h3 class="item_card_title text_smallHeader" th:text="${item.itemNm}"></h3>
+                            <div th:if="${item.discountRate != null}">
+                                <h3 class="item_card_title text_p" th:text="${#numbers.formatInteger(item.discountPrice, 3, 'COMMA') + '원'}"></h3>
+                                <label class="item_card_text text-danger text_smallP" style="text-decoration: line-through;" th:text="${#numbers.formatInteger(item.price, 3, 'COMMA') + '원'}"></label>
+                                <label class="text-danger text_smallP" th:text="${item.discountRate + '%'}"></label>
+                            </div>
+                            <div th:unless="${item.discountRate != null}">
+                                <h3 class="item_card_title text_p" th:text="${#numbers.formatInteger(item.price, 3, 'COMMA') + '원'}"></h3>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </th:block>
+        </div>
+
+        <div class="card_box">
+            <th:block th:each="item, status: ${itemTwo}">
+                <div class="item_card" th:title="${item.smallType}">
+                    <a th:href="'/item/' +${item.id}" >
+                        <img th:src="${item.imgUrl}" th:alt="${item.itemNm}">
+                        <label th:text="${item.smallType}" class="type_name text_smallHeader"></label>
+                        <div class="item_card_body">
+                            <h3 class="item_card_title" th:text="${item.itemNm}"></h3>
+                            <div th:if="${item.discountRate != null}">
+                                <h3 class="item_card_title text-danger text_p" th:text="${#numbers.formatInteger(item.discountPrice, 3, 'COMMA') + '원'}"></h3>
+                                <label class="item_card_text text-danger text_smallP" style="text-decoration: line-through;" th:text="${#numbers.formatInteger(item.price, 3, 'COMMA') + '원'}"></label>
+                                <label class="text-danger text_smallP" th:text="${item.discountRate + '%'}"></label>
+                            </div>
+                            <div th:unless="${item.discountRate != null}">
+                                <h3 class="item_card_title text_p" th:text="${#numbers.formatInteger(item.price, 3, 'COMMA') + '원'}"></h3>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </th:block>
+        </div>
+    </div>
+</div>
+</body>
+</html>

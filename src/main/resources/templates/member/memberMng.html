@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+
+<th:block layout:fragment="script">
+    <script type="text/javascript" th:src="@{/js/memberMng.js}"></script>
+</th:block>
+
+<th:block layout:fragment="css">
+    <link th:href="@{/css/memberMng.css}" rel="stylesheet">
+</th:block>
+
+<div layout:fragment="content">
+    <div class="content_layout">
+        <form th:action="@{'/admin/members/' + ${members.number}}" role="form" method="get" th:object="${members}">
+            <div th:object="${memberSearchDto}">
+                <div class="select_div">
+                    <select th:field="*{searchDateType}" class="select text_p">
+                        <option value="all">전체기간</option>
+                        <option value="1d">1일</option>
+                        <option value="1w">1주</option>
+                        <option value="1m">1개월</option>
+                        <option value="6m">6개월</option>
+                    </select>
+                    <select th:field="*{searchRole}" class="select text_p">
+                        <option value="">==선택==</option>
+                        <option value="ADMIN">관리자</option>
+                        <option value="USER">회원</option>
+                    </select>
+                    <select th:field="*{searchWay}" class="select text_p">
+                        <option value="">==선택==</option>
+                        <option value="회원가입">회원가입</option>
+                        <option value="kakao">카카오</option>
+                        <option value="naver">네이버</option>
+                        <option value="google">구글</option>
+                    </select>
+                </div>
+                <div class="select_div">
+                    <select th:field="*{searchName}" class="select text_p">
+                        <option value="id">아이디</option>
+                        <option value="name">이름</option>
+                        <option value="phone">전화번호</option>
+                    </select>
+                    <input th:field="*{searchQuery}" type="text" class="select_item text_p" placeholder="검색어를 입력해주세요">
+                    <button id="searchBtn" type="submit" class="btn btn-outline-info text_p">검색</button>
+                </div>
+            </div>
+
+            <table class="table">
+                <thead>
+                <tr class="text_p">
+                    <th>회원아이디</th>
+                    <th>이름</th>
+                    <th>이메일</th>
+                    <th>가입방식</th>
+                    <th>전화번호</th>
+                    <th>생성일</th>
+                    <th>수정</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="member, status: ${members.getContent()}" class="text_p">
+                    <td th:text="${member.id}"></td>
+                    <td th:text="${member.name}"></td>
+                    <td th:text="${member.email}"></td>
+                    <td th:text="${member.way}"></td>
+                    <td th:text="${member.phone}"></td>
+                    <td th:text="${#temporals.format(member.regTime, 'yyyy-MM-dd')}"></td>
+                    <td><input type="button" value="수정" th:data-role="${member.role}" class="modify_only text_p"></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div id="modify_modal" class="modal">
+                <div class="modal_content">
+                    <div class="modal_item">
+                        <label class="label text_p">이메일</label>
+                        <input type="text" id="modify_email" class="modal_input text_p" readonly>
+                    </div>
+                    <div class="modal_item">
+                        <label class="label text_p">이 름</label>
+                        <input type="text" id="modify_name" class="modal_input text_p">
+                    </div>
+                    <div class="modal_item">
+                        <label class="label text_p">권 한</label>
+                        <select class="modal_select text_p" id="modify_select">
+                            <option value="ADMIN">관리자</option>
+                            <option value="USER">회원</option>
+                        </select>
+                    </div>
+                    <div class="modal_item">
+                        <button class="modal_btn text_button" id="modify_btn" onclick="save()">저장</button>
+                        <button class="modal_btn text_button" id="close_btn" onclick="cancel()">취소</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div th:with="start=${(members.number/maxPage)*maxPage + 1},
+                end=(${(members.totalPages == 0) ? 1 : (start + (maxPage - 1) < members.totalPages ? start + (maxPage - 1) : members.totalPages)})">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" th:classappend="${members.first}?'disabled'">
+                        <a th:onclick="'javascript:page('+${members.number -1} + ')'" aria-label='Previous' class="page-link">
+                            <span aria-hidden="true" class="page_left"></span>
+                        </a>
+                    </li>
+                    <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${members.number eq page-1}?' active':''">
+                        <a th:onclick="'javascript:page(' + ${page -1} + ')'" th:inline="text" class="page-link text_p">[[${page}]]</a>
+                    </li>
+                    <li class="page-item" th:classappend="${members.last}?'disabled'">
+                        <a th:onclick="'javascript:page(' + ${members.number + 1} + ')'" aria-label="Next" class="page-link">
+                            <span aria-hidden="true" class="page_right"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </form>
+    </div>
+</div>
+</html>

@@ -1,0 +1,99 @@
+.content-mg{
+    width: 100%;
+    margin-top:2%;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.count-control{
+    text-align: center;
+    border: 1px solid #aaa;
+    border-left: none;
+    border-right: none;
+    border-radius: 8px;
+    width: 100px;
+    height: 40px;
+}
+.count-control:hover, .count-control:focus{
+    outline: none;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.count_num{
+    width: 40px;
+    border: 1px solid #aaa;
+    border-radius: 8px;
+}
+.prev{
+    background: url(/img/minus.png);
+    background-repeat: no-repeat;
+}
+.next{
+    background: url(/img/plus.png);
+    background-repeat: no-repeat;
+    border-left: none;
+}
+
+.repImgDiv{
+    margin-right:15px;
+    margin-left:15px;
+    border-right: 1px solid #ccc;
+    padding-right:30px;
+    height:auto;
+}
+.repImg{
+    height:100px;
+    width:100px;
+}
+
+.fs24{
+    line-height: 100px;
+    width : 250px;
+}
+
+.delete_td{
+    position: relative;
+}
+
+
+.close{
+    position: absolute;
+    border: none;
+    top: 40%;
+    left: 40%;
+    background: url(/img/close.png);
+    background-size: cover;
+    width: 25px;
+    height: 25px;
+}
+
+.close:hover{
+    transform: scale(1.04);
+}
+
+.checkbox{
+    display: none;
+}
+
+.check_label{
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+}
+
+.check_label::before{
+    content: url(/img/uncheck.png);
+}
+.check_label:hover{
+    content: url(/img/actioncheck.gif);
+}
+
+.checkbox:checked + .check_label{
+    content: url(/img/check.png);
+}

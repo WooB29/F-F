@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+<th:block layout:fragment="script">
+    <script type="text/javascript" th:src="@{/js/error.js}"></script>
+</th:block>
+
+<th:block layout:fragment="css">
+    <link th:href="@{/css/error.css}" rel="stylesheet">
+</th:block>
+
+<div layout:fragment="content">
+    <div class="content_layout">
+        <table class="table">
+            <thead style="text-align: center;">
+            <tr class="text_smallHeader">
+                <th>오류 번호</th>
+                <th>오류 날짜</th>
+                <th>오류 상태</th>
+                <th>상세 보기</th>
+            </tr>
+            </thead>
+            <tbody style="text-align: center;">
+            <th:block th:each="error, status: ${error.getContent()}">
+                <tr class="text_p">
+                    <td th:text="${error.errorId}" th:id="errorId+${status.index+1}"></td>
+                    <td th:text="${error.errorDate}"></td>
+                    <td th:if="${error.errorStatus == T(com.flower.constant.ErrorStatus).ERR_CLEAR}">완료</td>
+                    <td th:if="${error.errorStatus == T(com.flower.constant.ErrorStatus).ERR_YET}">미완료</td>
+                    <td>
+                        <input type="checkbox" th:id=bottomCheck+${status.index+1} class="input_check" th:data-num="${status.index+1}">
+                        <label th:for=bottomCheck+${status.index+1} class="img_label"></label>
+                    </td>
+                </tr>
+                <tr class="li_tr">
+                    <td colspan="4" class="li_td" th:id="liTd+${status.index+1}">
+                        <div class="td_div">
+                            <label class="td_label text_smallHeader">유저 ID</label>
+                            <input type="text" class="table_input text_p" th:value="${error.memberId}" readonly>
+                            <label class="td_label text_smallHeader">상태</label>
+                            <input type="text" class="table_input text_p" th:value="${error.comment}" readonly>
+                        </div>
+                        <div class="td_div">
+                            <label class="td_label text_smallHeader">오류 CODE</label>
+                            <input type="text" class="table_input text_p" th:value="${error.code}" readonly>
+                            <label class="td_label text_smallHeader">발생 위치</label>
+                            <input type="text" class="table_input text_p" th:value="${error.location}" readonly>
+                        </div>
+                        <div class="td_div">
+                            <label class="td_label input2 text_smallHeader">발생 이유</label>
+                            <input type="text" class="table_input input2 text_p" th:value="${error.content}" readonly>
+                        </div>
+                        <div class="td_div">
+                            <label class="td_label text_smallHeader">오류 상태</label>
+                            <select class="td_select text_p" th:id="errorStatus+${status.index+1}">
+                                <option value="ERR_CLEAR">완료</option>
+                                <option value="ERR_YET">미 완료</option>
+                            </select>
+                            <button class="text_button save_btn" type="button" th:data-num="${status.index+1}">저장</button>
+                        </div>
+                    </td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+
+        <div th:with="start=${(error.number/maxPage)*maxPage +1},
+                end=(${(error.totalPages == 0) ? 1 : (start + (maxPage-1) < error.totalPages ?
+                start + (maxPage -1) : error.totalPages)})">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:classappend="${error.number eq 0}?'disabled' : ''">
+                    <a th:href="@{'/admin/error/'+${error.number-1}}" aria-label="previous" class="page-link">
+                        <span aria-hidden="true" class="page_left"></span>
+                    </a>
+                </li>
+                <li class="page-item" th:each="page: ${#numbers.sequence(start,end)}"
+                    th:classappend="${error.number eq page-1}?'active':''">
+                    <a th:href="@{'/admin/error/' + ${page-1}}" th:inline="text" class="page-link text_p">[[${page}]]</a>
+                </li>
+                <li class="page-item" th:classappend="${error.number+1 ge error.totalPages}?'disabled' : ''">
+                    <a th:href="@{'/admin/error/'+${error.number+1}}" aria-label="Next" class="page-link">
+                        <span aria-hidden="true" class="page_right"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</html>
